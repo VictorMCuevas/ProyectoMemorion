@@ -25,3 +25,9 @@ h1 {
   #iniciar {
     margin-left: 50%;
   }
+  #tablero {
+    background-image: url("/imagenes/fondo.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: centers;
+  }
