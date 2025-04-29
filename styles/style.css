@@ -25,9 +25,18 @@ h1 {
   #iniciar {
     margin-left: 50%;
   }
+<<<<<<< Updated upstream
   #tablero {
     background-image: url("/imagenes/fondo.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: centers;
   }
+=======
+  .cronometro{
+    text-align: right;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  }
+
+  
+>>>>>>> Stashed changes
