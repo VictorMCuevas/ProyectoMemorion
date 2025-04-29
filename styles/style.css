@@ -1,6 +1,24 @@
 h1 {
-    margin: 0;
+    text-align: center;
     padding: 20px 0;
     color: #00539F;
     text-shadow: 3px 3px 1px black;
+  }
+
+  body {
+    background-color: gray;
+  }
+
+  table{
+    margin-left: 39%;
+    border: solid, black,2px ;
+    border-radius: 20px;
+  }
+
+  td {
+    padding: 20px;
+  }
+
+  #iniciar {
+    margin-left: 80px;
   }
