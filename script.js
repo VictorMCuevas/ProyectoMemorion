@@ -2,10 +2,10 @@ const btnInsertar = document.getElementById("iniciar");
 
 btnInsertar.addEventListener('click', () => {
     const nombre = document.getElementById("nombre").value;
-    const dificultad = document.getElementById("dimensiones").value;
+    const dimensiones = document.getElementById("dimensiones").value;
     const tema = document.getElementById("tema").value;
 
-    if(nombre==="" || dificultad===""||tema ===""){
+    if(nombre==="" || dimensiones===""||tema ===""){
         alert("Por favor, rellene los campos");
         return;
     }
@@ -15,10 +15,7 @@ btnInsertar.addEventListener('click', () => {
     tablero.innerHTML  = `
         <h2>¡Suerte ${nombre} !</h2>
     `;
-    const btnEliminar = document.createElement("button")
-
-    btnEliminar.textContent = "🗑";
-    tarjeta.appendChild(btnEliminar);
-    tarjetas.appendChild(tarjeta);
-    //console.log(`Fuente seleccionada ${nombre}`);
+    document.body.appendChild(tablero);
+    const url = `pantalla.html?nombre=${encodeURIComponent(nombre)}&dimensiones=${encodeURIComponent(dimensiones)}&tema=${encodeURIComponent(tema)}`;
+    window.open(url, "_blank");
 });
