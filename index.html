@@ -10,6 +10,31 @@
     <h1>Juego de memoria</h1>
     <table>
         <tr>
+            <th>Dimensiones: </th>
+            <td>
+                <select id="dimensiones">
+                    <option selected default disabled>Seleccione un tablero</option>
+                    <option id="facil">Fácil (4x4)</option>
+                    <option id="medio">Medio (5x5)</option>
+                    <option id="dificil">Difícil (6x6)</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Tema:</th>
+            <td>
+                <select id="tema">
+                    <option selected default disabled>Seleccione un tema</option>
+                    <option id="tema_Deportes">Deportes</option>
+                    <option id="tema_series">Series</option>
+                    <option id="tema_banderas">Banderas</option>
+                    <option id="tema_informatica">Informática</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button id="iniciar">¡A JUGAR!</button></td>
             <th></th>
             <td></td>
         </tr>
