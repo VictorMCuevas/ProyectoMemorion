@@ -39,7 +39,7 @@ window.addEventListener("DOMContentLoaded", () => {
             const nombre = document.getElementById("nombre").value;
             document.getElementById("nombrejugador").innerText = nombre;
             const dimensiones = document.getElementById("dimensiones").value;
-            const tema = document.getElementById("tema").value;
+            const tema = document.getElementById("tema").value
             let ancho;
             let alto;
 
