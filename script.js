@@ -1,3 +1,4 @@
+
 /*const btnInsertar = document.getElementById("iniciar");
 const inicio = document.getElementById("inicio");
 const tablero = document.getElementById("tablero");
