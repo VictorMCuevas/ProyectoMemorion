@@ -2,26 +2,18 @@ const btnInsertar = document.getElementById("iniciar");
 const inicio = document.getElementById("inicio");
 const tablero = document.getElementById("tablero");
 const menuPedirMedidas = document.getElementById("menuPedirMedidas");
-let ancho = document.getElementById("ancho");
-let alto = document.getElementById("alto")
+const ancho = 0;
+const alto = 0;
+
 
 dimensiones.addEventListener('click', () =>{
-    if(dimensiones.value == "Personalizado"){
+    if(dimensiones.value == "7"){
         menuPedirMedidas.style.display = "block";
-    }
-    if(dimensiones.value != "Personalizado"){
+
+    }else if(dimensiones.value != "Personalizado"){
         menuPedirMedidas.style.display = "none";
-        if(dimensiones === "Fácil (4x4)"){
-            alto = "4";
-            ancho = "4";
-        }else if( dimensiones=== "Medio (5x4)"){
-            alto = "4";
-            ancho = "5"; 
-        }else if( dimensiones === "Difícil (6x6)"){
-            alto.value = "6";
-            ancho = "6";
-        }
     }
+
 });
 
 
@@ -37,9 +29,26 @@ btnInsertar.addEventListener('click', () => {
     }else {
         inicio.style.display = "none";
         tablero.style.display = "block";
+
+        if(dimensiones.value === "4"){
+            alto = 4;
+            ancho = 4;
+        }else if( dimensiones.value === "5"){
+            alto = 4;
+            ancho = 5; 
+        }else if( dimensiones.value === "6"){
+            alto = 6;
+            ancho = 6;
+        }else if(dimensiones.value === "7") {
+            ancho.document.getElementById("ancho");
+            alto.document.getElementById("alto");
+        }
+
+        if(ancho.valueOf === "6") {
+            inicio.style.display = "block";
+        }
     }
 });
-
 
 window.addEventListener("DOMContentLoaded", () => {
     const tablero = document.getElementById("tablero");
