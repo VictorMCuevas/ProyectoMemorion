@@ -2,8 +2,6 @@
 const inicio = document.getElementById("inicio");
 const tablero = document.getElementById("tablero");
 const menuPedirMedidas = document.getElementById("menuPedirMedidas");*/
-let ancho;
-let alto;
 
 
 
@@ -30,8 +28,8 @@ window.addEventListener("DOMContentLoaded", () => {
     btnInsertar.addEventListener('click', () => {
         const nombre = document.getElementById("nombre").value;
         document.getElementById("nombrejugador").innerText = nombre;
-        const dimensiones = document.getElementById("dimensiones").value;
-        let tema = document.getElementById("tema").value;
+        const dimensiones = document.getElementById("dimensiones");
+        const tema = document.getElementById("tema");
     
         if(nombre==="" || dimensiones===""||tema ===""){
             alert("Por favor, rellene los campos");
@@ -41,7 +39,10 @@ window.addEventListener("DOMContentLoaded", () => {
             const nombre = document.getElementById("nombre").value;
             document.getElementById("nombrejugador").innerText = nombre;
             const dimensiones = document.getElementById("dimensiones").value;
-            let tema = document.getElementById("tema").value;
+            const tema = document.getElementById("tema").value;
+            let ancho;
+            let alto;
+
     
             if(dimensiones.value === "4"){
                 alto = 4;
@@ -56,7 +57,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 ancho = document.getElementById("ancho");
                 alto = document.getElementById("alto");
             }
-            
+
             inicio.style.display = "none";
             tablero.style.display = "block";
     
