@@ -26,10 +26,29 @@ h1 {
     margin-left: 50%;
   }
   #tablero {
+    animation: pulsar 1s forwards;
+
     background-image: url("/imagenes/fondo.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: centers;
+  }
+  @keyframes pulsar {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.02);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  .animar-tablero {
+    animation: pulsar 1s forwards;
   }
   #tablero table{
     padding-left: 30%;
@@ -46,5 +65,7 @@ h1 {
    color: aliceblue;
     font-family: Arial, Helvetica, sans-serif;
   }
+
+  
 
   
