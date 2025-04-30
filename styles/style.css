@@ -9,7 +9,7 @@ h1 {
     background-color: gray;
   }
 
-  table{
+  #formulario{
     background-color: darkgrey;
     margin-left: 34%;
     border: solid, black,2px ;
@@ -31,13 +31,20 @@ h1 {
     background-repeat: no-repeat;
     background-position: centers;
   }
+  #tablero table{
+    padding-left: 30%;
+  }
   .cronometro{
-    text-align: right;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    padding-top: 20px;
+    padding-left: 10%;
+    color: aliceblue;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
   }
   .contador{
-   
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+   color: aliceblue;
+    font-family: Arial, Helvetica, sans-serif;
   }
 
   
