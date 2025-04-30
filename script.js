@@ -44,9 +44,6 @@ btnInsertar.addEventListener('click', () => {
             alto.document.getElementById("alto");
         }
 
-        if(ancho.valueOf === "6") {
-            inicio.style.display = "block";
-        }
     }
 });
 
