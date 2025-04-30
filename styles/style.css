@@ -25,6 +25,10 @@ h1 {
   #iniciar {
     margin-left: 50%;
   }
+  #menuPedirMedidas {
+    display: none;
+    padding: 10px;
+  }
   #tablero {
     display: none;
     animation: pulsar 1s forwards;
