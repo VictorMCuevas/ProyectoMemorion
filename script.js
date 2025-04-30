@@ -9,15 +9,17 @@ btnInsertar.addEventListener('click', () => {
         alert("Por favor, rellene los campos");
         return;
     }else {
-        innerHTML = `<a href="pantalla.html">`
+        innerHTML = `<a href="pantalla.html">`;
     }
     const tablero = document.createElement('div');
     tablero.classList.add("tablero");
 
-    tablero.innerHTML  = `
-        <h2>¡Suerte ${nombre} !</h2>
-    `;
+  
     document.body.appendChild(tablero);
     const url = `pantalla.html?nombre=${encodeURIComponent(nombre)}&dimensiones=${encodeURIComponent(dimensiones)}&tema=${encodeURIComponent(tema)}`;
     window.open(url, "_blank");
+});
+window.addEventListener("DOMContentLoaded", () => {
+    const tablero = document.getElementById("tablero");
+    tablero.classList.add("animar-tablero");
 });
