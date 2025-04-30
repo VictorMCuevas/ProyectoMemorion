@@ -26,8 +26,8 @@ h1 {
     margin-left: 50%;
   }
   #tablero {
+    display: none;
     animation: pulsar 1s forwards;
-
     background-image: url("/imagenes/fondo.jpg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -65,9 +65,7 @@ h1 {
    color: aliceblue;
     font-family: Arial, Helvetica, sans-serif;
   }
-  #tablero {
-    display: none;
-  }
+
 
   
 

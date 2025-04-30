@@ -1,6 +1,7 @@
 const btnInsertar = document.getElementById("iniciar");
 const inicio = document.getElementById("inicio");
 const tablero = document.getElementById("tablero");
+
 btnInsertar.addEventListener('click', () => {
     const nombre = document.getElementById("nombre").value;
     const dimensiones = document.getElementById("dimensiones").value;
@@ -10,17 +11,9 @@ btnInsertar.addEventListener('click', () => {
         alert("Por favor, rellene los campos");
         return;
     }else {
-        //innerHTML = `<a href="pantalla.html">`;
-        inicio.style.display("none");
-        tablero.style.display("block");
+        inicio.style.display = "none";
+        tablero.style.display = "block";
     }
-    const tablero = document.createElement('div');
-    tablero.classList.add("tablero");
-
-  
-    document.body.appendChild(tablero);
-    const url = `pantalla.html?nombre=${encodeURIComponent(nombre)}&dimensiones=${encodeURIComponent(dimensiones)}&tema=${encodeURIComponent(tema)}`;
-    window.open(url, "_blank");
 });
 window.addEventListener("DOMContentLoaded", () => {
     const tablero = document.getElementById("tablero");
