@@ -28,19 +28,20 @@ window.addEventListener("DOMContentLoaded", () => {
     
     
     btnInsertar.addEventListener('click', () => {
-        console.log("entra");
         const nombre = document.getElementById("nombre").value;
         document.getElementById("nombrejugador").innerText = nombre;
-        const dimensiones = document.getElementById("dimensiones");
-        const tema = document.getElementById("tema");
+        const dimensiones = document.getElementById("dimensiones").value;
+        let tema = document.getElementById("tema").value;
     
         if(nombre==="" || dimensiones===""||tema ===""){
             alert("Por favor, rellene los campos");
             return;
     
         }else {
-            inicio.style.display = "none";
-            tablero.style.display = "block";
+            const nombre = document.getElementById("nombre").value;
+            document.getElementById("nombrejugador").innerText = nombre;
+            const dimensiones = document.getElementById("dimensiones").value;
+            let tema = document.getElementById("tema").value;
     
             if(dimensiones.value === "4"){
                 alto = 4;
@@ -55,6 +56,9 @@ window.addEventListener("DOMContentLoaded", () => {
                 ancho = document.getElementById("ancho");
                 alto = document.getElementById("alto");
             }
+            
+            inicio.style.display = "none";
+            tablero.style.display = "block";
     
         }
     });
