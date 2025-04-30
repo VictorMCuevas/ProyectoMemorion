@@ -1,15 +1,52 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-ES">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyecto Memorión</title>
-    <link rel="stylesheet" href="styles/style.css">
-
+    <link href="styles/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <h1>Juego de memoria</h1>
+    <table>
+        <tr>
+            <th>Nombre de jugador:</th>
+            <td>
+                <input type="text" id="nombre">
+            </td>
+        </tr>
+        <tr>
+            <th>Dimensiones: </th>
+            <td>
+                <select id="dimensiones">
+                    <option selected default disabled>Seleccione un tablero</option>
+                    <option>Fácil (4x4)</option>
+                    <option>Medio (5x4)</option>
+                    <option>Difícil (6x6)</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Tema:</th>
+            <td>
+                <select id="tema">
+                    <option selected default disabled>Seleccione un tema</option>
+                    <option>Deportes</option>
+                    <option>Animales</option>
+                    <option>Banderas</option>
+                    <option>Informática</option>
+                    <option>Aleatorio</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <a href="pantalla.html"><button id="iniciar">¡A JUGAR!</button></a>
+            </td>
+        </tr>
+    </table>
 
-   <script src="script.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="styles/style.css">
 </body>
 </html>
