@@ -8,6 +8,8 @@ btnInsertar.addEventListener('click', () => {
     if(nombre==="" || dimensiones===""||tema ===""){
         alert("Por favor, rellene los campos");
         return;
+    }else {
+        innerHTML = `<a href="pantalla.html">`
     }
     const tablero = document.createElement('div');
     tablero.classList.add("tablero");
