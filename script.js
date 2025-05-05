@@ -10,7 +10,6 @@ window.addEventListener("DOMContentLoaded", () => {
     let ancho;
     let alto;
     let numFotos;
-    let rutaImagenes;
     let fotos = [];
         
     
@@ -29,7 +28,7 @@ window.addEventListener("DOMContentLoaded", () => {
         const nombre = document.getElementById("nombre").value;
         document.getElementById("nombrejugador").innerText = nombre;
         const dimensiones = document.getElementById("dimensiones").value;
-        const tema = document.getElementById("tema").value;
+        var tema = document.getElementById("tema").value;
         
         if(nombre==="" || dimensiones===""||tema ===""){
             alert("Por favor, rellene los campos");
@@ -56,12 +55,13 @@ window.addEventListener("DOMContentLoaded", () => {
                 
 
             }
-            numFotos = calcularFotos;
-            rutaImagenes = "imagenes/" + tema + "/";
+            numFotos = calcularFotos(alto, ancho);
+            var rutaImagenes = ("./imagenes/" + tema + "/");
+            guardarImg(rutaImagenes, numFotos)
             crearTabla(alto,ancho,tema);
             
 
-            console.log("Ancho:", ancho);
+            console.log(rutaImagenes);
             console.log("Alto:", alto);
 
             inicio.style.display = "none";
@@ -70,14 +70,15 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    function guardarImg(rutaImagenes, numFotos) {
+    
+    function guardarImg(rutaImagenes, numFotos,tema) {
         for(let i = 0; i < numFotos; i++){
-            rutaImagenes += (i + ".jpg");
-            fotos[i] = (rutaImagenes);
+            fotos[i] = (rutaImagenes + i + ".jpg");
         }
     }
+        
     function calcularFotos(alto, ancho) {
-        return (alto*ancho)/2;
+        return Math.floor(alto*ancho)/2;
     }
     function crearTabla(alto,ancho,tema) {
         let tablaHTML = "<table border='1'>";
@@ -85,7 +86,7 @@ window.addEventListener("DOMContentLoaded", () => {
         for (let i = 0; i < alto; i++) {
           tablaHTML += "<tr>";
           for (let j = 0; j < ancho; j++) {
-            tablaHTML += `<td>Alto ${i + 1}, Ancho ${fotos[j]}</td>`;
+            tablaHTML += `<td><img src="${fotos[j]}"></td>`;
           }
           tablaHTML += "</tr>";
         }
