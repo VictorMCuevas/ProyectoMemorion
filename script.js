@@ -56,7 +56,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
             }
             numFotos = calcularFotos(alto, ancho);
-            var rutaImagenes = ("./imagenes/" + tema + "/");
+            var rutaImagenes = ("imagenes/" + tema + "/");
             guardarImg(rutaImagenes, numFotos)
             crearTabla(alto,ancho,tema);
             
