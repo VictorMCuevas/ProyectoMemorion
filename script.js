@@ -9,6 +9,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
     let ancho;
     let alto;
+    let numFotos;
+    let rutaImagenes;
+    let fotos = [];
+        
     
     dimensiones.addEventListener('click', () =>{
         if(dimensiones.value == "7"){
@@ -41,6 +45,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 alto = "4";
                 ancho = "5";
 
+
             }else if( dimensiones === "6"){
                 alto = "6";
                 ancho = "6";
@@ -49,8 +54,12 @@ window.addEventListener("DOMContentLoaded", () => {
                 ancho = document.getElementById("ancho").value
                 alto = document.getElementById("alto").value
                 
+
             }
+            numFotos = calcularFotos;
+            rutaImagenes = "imagenes/" + tema + "/";
             crearTabla(alto,ancho,tema);
+            
 
             console.log("Ancho:", ancho);
             console.log("Alto:", alto);
@@ -61,13 +70,22 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    function guardarImg(rutaImagenes, numFotos) {
+        for(let i = 0; i < numFotos; i++){
+            rutaImagenes += (i + ".jpg");
+            fotos[i] = (rutaImagenes);
+        }
+    }
+    function calcularFotos(alto, ancho) {
+        return (alto*ancho)/2;
+    }
     function crearTabla(alto,ancho,tema) {
         let tablaHTML = "<table border='1'>";
 
         for (let i = 0; i < alto; i++) {
           tablaHTML += "<tr>";
           for (let j = 0; j < ancho; j++) {
-            tablaHTML += `<td>Alto ${i + 1}, Ancho ${j + 1}</td>`;
+            tablaHTML += `<td>Alto ${i + 1}, Ancho ${fotos[j]}</td>`;
           }
           tablaHTML += "</tr>";
         }
