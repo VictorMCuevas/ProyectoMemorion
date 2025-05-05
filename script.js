@@ -26,7 +26,6 @@ window.addEventListener("DOMContentLoaded", () => {
         const dimensiones = document.getElementById("dimensiones").value;
         const tema = document.getElementById("tema").value;
         
-    
         if(nombre==="" || dimensiones===""||tema ===""){
             alert("Por favor, rellene los campos");
             return;
