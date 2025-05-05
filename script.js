@@ -6,6 +6,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const btnInsertar = document.getElementById("iniciar");
     const inicio = document.getElementById("inicio");
     const menuPedirMedidas = document.getElementById("menuPedirMedidas");
+
     let ancho;
     let alto;
     
@@ -35,15 +36,19 @@ window.addEventListener("DOMContentLoaded", () => {
             if(dimensiones === "4"){ 
                 alto = "4";
                 ancho = "4";
+                
             }else if( dimensiones === "5"){
                 alto = "4";
                 ancho = "5";
+
             }else if( dimensiones === "6"){
                 alto = "6";
                 ancho = "6";
-            }else if(dimensiones.value === "7") {
-                ancho = getElementById("ancho").value
-                alto = getElementById("alto").value
+
+            }else if(dimensiones === "7") {
+                ancho = document.getElementById("ancho").value
+                alto = document.getElementById("alto").value
+                crearTabla(alto,ancho,tema)
             }
 
             console.log("Ancho:", ancho);
@@ -54,6 +59,21 @@ window.addEventListener("DOMContentLoaded", () => {
     
         }
     });
+
+    function crearTabla(alto,ancho,tema) {
+        let tablaHTML = "<table border='1'>";
+
+        for (let i = 0; i < alto; i++) {
+          tablaHTML += "<tr>";
+          for (let j = 0; j < ancho; j++) {
+            tablaHTML += `<td>Fila ${i + 1}, Col ${j + 1}</td>`;
+          }
+          tablaHTML += "</tr>";
+        }
+      
+        tablaHTML += "</table>";
+        document.getElementById("juego").innerHTML = tablaHTML;
+      }
 
 
 });
