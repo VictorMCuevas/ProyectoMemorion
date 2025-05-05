@@ -48,8 +48,9 @@ window.addEventListener("DOMContentLoaded", () => {
             }else if(dimensiones === "7") {
                 ancho = document.getElementById("ancho").value
                 alto = document.getElementById("alto").value
-                crearTabla(alto,ancho,tema)
+                
             }
+            crearTabla(alto,ancho,tema);
 
             console.log("Ancho:", ancho);
             console.log("Alto:", alto);
@@ -66,7 +67,7 @@ window.addEventListener("DOMContentLoaded", () => {
         for (let i = 0; i < alto; i++) {
           tablaHTML += "<tr>";
           for (let j = 0; j < ancho; j++) {
-            tablaHTML += `<td>Fila ${i + 1}, Col ${j + 1}</td>`;
+            tablaHTML += `<td>Alto ${i + 1}, Ancho ${j + 1}</td>`;
           }
           tablaHTML += "</tr>";
         }
