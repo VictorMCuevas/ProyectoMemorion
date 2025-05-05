@@ -24,7 +24,6 @@ Proyecto Memorión en JavaScript para practias 1ºDAW
  *Ideas de mejora futura:*
  - [Agregar todas las funcionalidades]
 
-
 @@ -1,14 +1,16 @@
 # ProyectoMemorion
 Proyecto Memorión en JavaScript para practias 1ºDAW
@@ -58,3 +57,32 @@ Proyecto Memorión en JavaScript para practias 1ºDAW
  - [Agregar todas las funcionalidades]
  - [Crear el tablero con las dimensiones seleccionadas en el formulario.]
  - [Nos ha faltado implementar el cronómetro, el contador, el tablero y las cartas.]
+
+@@ -1,14 +1,16 @@
+# ProyectoMemorion
+Proyecto Memorión en JavaScript para practias 1ºDAW
+
+## sesion 3
+
+*Resumen:*
+[Hemos creado mas funcionalidades como crear el tablero con las dimensiones que pida el usuario y aun estamos terminado de implementar el tipo de tema que llevaran las cartas y organizando la forma del tablero]
+
+*Dificultades encontradas*
+- [Se nos complica aun el manejo de github]
+- [El manejo de java script aun no lo encontramos facil]
+
+*Soluciones aplicadas:*^
+- [Invesgacion en paginas web]
+- [Invesgacion en inteligencias artificiales]
+- [Tutoria de docentes]
+
+*Fuentes consultadas*
+- [https://chatgpt.com/]
+- [https://codepen.io/janio/pen/wGOGRa]
+ 
+ *Decisiones tecnicas*
+ - [Reorganizaciòn de trabajo en equipo, nos organizamos de otra manera para trabajar a la vez y tener menos problemas a la hora de realizar cambios y ser mas efectivos]
+
+ *Ideas de mejora futura:*
+ - [mejorar el diseño]
+ - [terminar de implementar las funcionalidades]
