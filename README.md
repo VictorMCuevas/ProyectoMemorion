@@ -3,23 +3,24 @@ Proyecto Memorión en JavaScript para practias 1ºDAW
 
 ## sesion 1
 
-*Resumen:*
+**Resumen:**
 [Hemos resalizado el formulario, de momento el cronometro lo hemos puesto y el tablero pero aun no estan funcionales]
 
-*Dificultades encontradas*
+**Dificultades encontradas**
 - [Se nos complica aun el manejo de github]
 - [El manejo de java script aun no lo encontramos facil]
 
-*Soluciones aplicadas:*^
+**Soluciones aplicadas:**^
 - [Investigamos en paginas web e inteligencias artificiales]
 
-*Fuentes consultadas*
+**Fuentes consultadas**
 - [https://es.pinterest.com/]
 - [https://chatgpt.com/]
 - [https://codepen.io/janio/pen/wGOGRa]
  
- *Decisiones tecnicas*
+ **Decisiones tecnicas**
  - [De momento no hay nada funcional y no hemos tenido que tomarlas]
+
 
  *Ideas de mejora futura:*
  - [Agregar todas las funcionalidades]
@@ -86,3 +87,34 @@ Proyecto Memorión en JavaScript para practias 1ºDAW
  *Ideas de mejora futura:*
  - [mejorar el diseño]
  - [terminar de implementar las funcionalidades]
+
+ **Ideas de mejora futura:**
+ - [Agregar todas las funcionalidades]
+
+## sesion 4
+
+*Resumen:*
+[Hemos creado mas funcionalidades como girar las imagenes, el cronometro, el conteo de intentos, si las imagenes son iguales se quedan visibles y mucho mas stilos]
+
+*Dificultades encontradas*
+- [Se nos complica aun el manejo de github]
+- [El manejo de java script aun no lo encontramos facil]
+
+*Soluciones aplicadas:*^
+- [Invesgacion en paginas web]
+- [Invesgacion en inteligencias artificiales]
+
+*Fuentes consultadas*
+- [https://chatgpt.com/]
+- [https://es.stackoverflow.com]
+- [https://www.w3schools.com/]
+ 
+ *Decisiones tecnicas*
+ - [Reorganizaciòn de trabajo en equipo, nos organizamos de otra manera para trabajar a la vez y tener menos problemas a la hora de realizar cambios y ser mas efectivos, tambien hemos realizado un stilo diferente de programa en lo visual]
+
+ *Ideas de mejora futura:*
+ - [mejorar el diseño]
+ - [terminar de implementar mas funcionalidades]
+
+ **Ideas de mejora futura:**
+ - [Agregar todas las funcionalidades]

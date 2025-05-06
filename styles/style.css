@@ -1,74 +1,192 @@
 h1 {
-    text-align: center;
-    padding: 20px 0;
-    color: #00539F;
-    text-shadow: 3px 3px 1px black;
-  }
+  text-align: center;
+  padding: 20px 0;
+  color: #00539F;
+  text-shadow: 3px 3px 1px black;
+}
 
-  body {
-    background-color: gray;
-  }
+body {
+  background-image: url("/imagenes/fondo.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
 
-  #formulario{
-    background-color: darkgrey;
-    margin-left: 34%;
-    border: solid, black,2px ;
-    border-radius: 20px;
-  }
-  tr th{
-    padding-left:30px ;
-  }
-  td {
-    padding: 20px;
-  }
+#formulario{
+  background-color: darkgrey;
+  margin-left: 34%;
+  border: solid, black,2px ;
+  border-radius: 20px;
+}
+tr th{
+  padding-left:30px ;
+}
+td {
+  padding: 20px;
+}
 
-  #iniciar {
-    margin-left: 50%;
+#iniciar {
+  margin-left: 50%;
+}
+#menuPedirMedidas {
+  display: none;
+  padding: 10px;
+}
+#tablero {
+  
+  display: none;
+  animation: pulsar 1s forwards;
+  background-image: url("/imagenes/fondo.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: centers;
+}
+@keyframes pulsar {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
   }
-  #menuPedirMedidas {
-    display: none;
-    padding: 10px;
+  50% {
+    opacity: 0.5;
+    transform: scale(1.01);
   }
-  #tablero {
-    display: none;
-    animation: pulsar 1s forwards;
-    background-image: url("/imagenes/fondo.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: centers;
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
-  @keyframes pulsar {
-    0% {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    50% {
-      opacity: 0.5;
-      transform: scale(1.01);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  .animar-tablero {
-    animation: pulsar 1s forwards;
-  }
-  #tablero table{
-    padding-left: 30%;
-  }
-  .cronometro{
-    padding-top: 20px;
-    padding-left: 10%;
-    color: aliceblue;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  .contador{
-    text-align: center;
-   color: aliceblue;
-    font-family: Arial, Helvetica, sans-serif;
-  }
+}
+.animar-tablero {
+  animation: pulsar 1s forwards;
+}
+#tablero table{
+  padding-left: 30%;
+}
+.cronometro{
+  padding-top: 20px;
+  padding-left: 10%;
+  color: aliceblue;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(to bottom, #22382b, #426c54); /* Degradado de blanco a gris claro */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.952);
+}
+.contador{
+  text-align: center;
+ color: aliceblue;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.card {
+  width: 100px;
+  height: 100px;
+  perspective: 1000px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.card-front {
+  background: #999;
+}
+
+.card-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  transform: rotateY(180deg);
+}
+
+table {
+  border-spacing: 10px;
+}
+
+.card {
+  width: 100px;
+  height: 100px;
+  perspective: 1000px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  top: 0;
+  left: 0;
+}
+
+.card-front img,
+.card-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.card-front {
+  z-index: 2;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+#contenedor {
+  display: flex;
+  align-items: center; 
+  gap: 5px;
+}
+/* Centrar el contenedor de las cartas */
+#juego {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/* Asegurar que las cartas estén alineadas correctamente */
+#juego table {
+  border-collapse: collapse;
+}
+
+#juego td {
+  padding: 10px; /* Espaciado entre las cartas */
+  text-align: center;
+}
+
+
+
 
 
   

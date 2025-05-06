@@ -54,7 +54,7 @@
                         <option>Deportes</option>
                         <option>Animales</option>
                         <option>Banderas</option>
-                        <option>Informática</option>
+                        <option>Informatica</option>
                         <option>Aleatorio</option>
                     </select>
                 </td>
@@ -73,21 +73,27 @@
         </table>
     </div>
     <div id="tablero">
-        <div class="cronometro" style="text-align: left">
+        <div class="cronometro">
             <table>
                 <tr><th id="nombrejugador" ></th>
-                   
-                    <th id="displayCrono" >Cronometro: 00:00:00</th>
+                    <th id="contenedor">
+                        <div class="reloj" id="Minutos">00</div>
+                        <div class="reloj" id="Segundos">:00</div>
+                        <div class="reloj" id="Centesimas">:00</div>
+                    </th>
                     <br>
-                    <th  id="displaycont" style=" text-align: left;">contador: 0</th>
+                    <th  id="contador" style=" text-align: left;">contador: 0</th>
                 </tr>
             </table>
         </div>
-    
         <div id="juego"></div>
+        
     </div>
+    
+
+   
 
     <script src="script.js"></script>
-    <link rel="stylesheet" href="styles/style.css">
+    <link href="styles/style.css" rel="stylesheet" type="text/css">
 </body>
 </html>
