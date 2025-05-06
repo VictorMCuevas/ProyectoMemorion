@@ -91,3 +91,30 @@ Proyecto Memorión en JavaScript para practias 1ºDAW
  **Ideas de mejora futura:**
  - [Agregar todas las funcionalidades]
 
+## sesion 4
+
+*Resumen:*
+[Hemos creado mas funcionalidades como girar las imagenes, el cronometro, el conteo de intentos, si las imagenes son iguales se quedan visibles y mucho mas stilos]
+
+*Dificultades encontradas*
+- [Se nos complica aun el manejo de github]
+- [El manejo de java script aun no lo encontramos facil]
+
+*Soluciones aplicadas:*^
+- [Invesgacion en paginas web]
+- [Invesgacion en inteligencias artificiales]
+
+*Fuentes consultadas*
+- [https://chatgpt.com/]
+- [https://es.stackoverflow.com]
+- [https://www.w3schools.com/]
+ 
+ *Decisiones tecnicas*
+ - [Reorganizaciòn de trabajo en equipo, nos organizamos de otra manera para trabajar a la vez y tener menos problemas a la hora de realizar cambios y ser mas efectivos, tambien hemos realizado un stilo diferente de programa en lo visual]
+
+ *Ideas de mejora futura:*
+ - [mejorar el diseño]
+ - [terminar de implementar mas funcionalidades]
+
+ **Ideas de mejora futura:**
+ - [Agregar todas las funcionalidades]
