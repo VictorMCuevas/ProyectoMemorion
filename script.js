@@ -1,4 +1,3 @@
-
 window.addEventListener("DOMContentLoaded", () => {
     const tablero = document.getElementById("tablero");
     tablero.classList.add("animar-tablero");
@@ -87,7 +86,7 @@ window.addEventListener("DOMContentLoaded", () => {
                     tablaHTML += `<td><img src="${fotos[cont]}" /></td>`;
                     cont++;
                 } else {
-                    tablaHTML += `<td>Celda impar vacia</td>`;
+                    tablaHTML += `<td>Celda impar Vacia</td>`;
                 }
             }
             tablaHTML += "</tr>";
