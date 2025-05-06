@@ -1,4 +1,3 @@
-
 window.addEventListener("DOMContentLoaded", () => {
     const tablero = document.getElementById("tablero");
     tablero.classList.add("animar-tablero");
@@ -24,7 +23,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     btnInsertar.addEventListener('click', () => {
         const nombre = document.getElementById("nombre").value;
-        document.getElementById("nombrejugador").innerText = nombre;
+        document.getElementById("nombrejugador").innerText = "Jugador: " + nombre;
         const dimensionesValor = document.getElementById("dimensiones").value;
         const tema = document.getElementById("tema").value;
 
@@ -45,11 +44,6 @@ window.addEventListener("DOMContentLoaded", () => {
                 ancho = parseInt(document.getElementById("ancho").value);
                 alto = parseInt(document.getElementById("alto").value);
             }
-            numFotos = calcularFotos(alto, ancho);
-            var rutaImagenes = ("imagenes/" + tema + "/");
-            guardarImg(rutaImagenes, numFotos)
-            crearTabla(alto,ancho,tema);
-            
 
             numFotos = calcularFotos(alto, ancho);
             const rutaImagenes = "./imagenes/" + tema + "/";
@@ -77,25 +71,53 @@ window.addEventListener("DOMContentLoaded", () => {
         fotos.sort(() => 0.5 - Math.random());
     }
 
-    function crearTabla(alto, ancho) {
+    /**function crearTabla(alto, ancho) {
         let tablaHTML = "<table border='1'>";
         let cont = 0;
         for (let i = 0; i < alto; i++) {
             tablaHTML += "<tr>";
             for (let j = 0; j < ancho; j++) {
                 if (cont < fotos.length) {
-                    tablaHTML += `<td><img src="${fotos[cont]}" /></td>`;
+                    tablaHTML += <td><img src="${fotos[cont]}" /></td>;
                     cont++;
                 } else {
-                    tablaHTML += `<td>Celda impar vacia</td>`;
+                    tablaHTML += <td>Celda impar Vacia</td>;
                 }
             }
             tablaHTML += "</tr>";
         }
         tablaHTML += "</table>";
         document.getElementById("juego").innerHTML = tablaHTML;
-      }
-
-
+        
+    }*/
+        function crearTabla(alto, ancho) {
+            let tablaHTML = "<table>";
+            let cont = 0;
+            for (let i = 0; i < alto; i++) {
+                tablaHTML += "<tr>";
+                for (let j = 0; j < ancho; j++) {
+                    if (cont < fotos.length) {
+                        const imgSrc = fotos[cont];
+                        tablaHTML += `
+                          <td>
+                            <div class="card" onclick="this.classList.toggle('flipped')">
+                              <div class="card-inner">
+                                <div class="card-front"></div>
+                                <div class="card-back"><img src="${imgSrc}" /></div>
+                              </div>
+                            </div>
+                          </td>
+                        `;
+                        cont++;
+                    } else {
+                        tablaHTML += "<td></td>";
+                    }
+                }
+                tablaHTML += "</tr>";
+            }
+            tablaHTML += "</table>";
+            document.getElementById("juego").innerHTML = tablaHTML;
+        }
+        
 });
 
