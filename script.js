@@ -1,6 +1,10 @@
 let primeraCarta = null;
 let segundaCarta = null;
 let bloquear = false;
+var contador = 0;
+var aciertos = 0;
+let fotos = [];
+let numFotos;
 
 window.addEventListener("DOMContentLoaded", () => {
     const tablero = document.getElementById("tablero");
@@ -12,8 +16,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
     let ancho;
     let alto;
-    let numFotos;
-    let fotos = [];
     var centesimas = 0;
     var segundos = 0;
     var minutos = 0;
@@ -113,7 +115,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
     function crearTabla(alto, ancho) {
-        const reverso = "./imagenes/dorso.jpg"; // Usa la imagen común oculta
+        const reverso = "./imagenes/dorso.jpg"; // Usa la imagen oculta
         let tablaHTML = "<table>";
         let cont = 0;
 
@@ -136,11 +138,13 @@ window.addEventListener("DOMContentLoaded", () => {
                         </div>
                     </td>`;
                     cont++;
+                    
                 } else {
                     tablaHTML += "<td></td>";
                 }
             }
-            tablaHTML += "</tr>";
+            tablaHTML += "</tr>"; 
+           
         }
 
         tablaHTML += "</table>";
@@ -151,38 +155,53 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function voltearCarta(carta) {
+
     if (bloquear || carta.classList.contains("flipped")) return;
 
-    // Volteamos la carta
+    // volteamos la carta
     carta.classList.add("flipped");
 
-    // Si es la primera carta que hemos volteado
+    // si es la primera carta que hemos volteado
     if (!primeraCarta) {
         primeraCarta = carta;
+        if(aciertos === ((ancho*alto)/2)){
+            alert("Enhorabuena has ganado")
+        }
     } else {
-        // Es la segunda carta
+        // es la segunda carta
         segundaCarta = carta;
         bloquear = true;
 
-        // Obtenemos el ID de las dos cartas
+        // obtenemos el ID de las dos cartas
         const id1 = primeraCarta.getAttribute("data-id");
         const id2 = segundaCarta.getAttribute("data-id");
 
-        // Verificamos si coinciden
+        // verificamos si coinciden
         if (id1 === id2) {
-            // Coinciden → se quedan boca arriba
+            // coinciden se quedan boca arriba
             primeraCarta = null;
             segundaCarta = null;
             bloquear = false;
+            aciertos++
+
         } else {
-            // No coinciden → se voltean de nuevo
+            // si no coinciden se voltean de nuevo
             setTimeout(() => {
                 primeraCarta.classList.remove("flipped");
                 segundaCarta.classList.remove("flipped");
                 primeraCarta = null;
                 segundaCarta = null;
                 bloquear = false;
-            }, 1000); // Se voltean después de 1 segundo
+
+                contador++;
+                const displayCont = document.getElementById("contador");
+                if (displayCont) {
+                    displayCont.innerText = "contador: " + contador;
+                }
+
+            }, 1000); // se voltean después de 1 segundo
         }
+
     }
-} 
+
+}

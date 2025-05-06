@@ -162,7 +162,11 @@ table {
   transform: rotateY(180deg);
 }
 
-
+#contenedor {
+  display: flex;
+  align-items: center; 
+  gap: 5px;
+}
 /* Centrar el contenedor de las cartas */
 #juego {
   display: flex;
@@ -180,7 +184,6 @@ table {
   padding: 10px; /* Espaciado entre las cartas */
   text-align: center;
 }
-
 
 
 
