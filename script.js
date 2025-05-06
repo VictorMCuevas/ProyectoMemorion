@@ -4,7 +4,7 @@ let bloquear = false;
 var contador = 0;
 var aciertos = 0;
 let fotos = [];
-let numFotos;
+var numFotos;
 let ancho;
 let alto;
 
@@ -34,7 +34,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     btnInsertar.addEventListener('click', () => {
         const nombre = document.getElementById("nombre").value;
-        document.getElementById("nombrejugador").innerText = nombre;
+        document.getElementById("nombrejugador").innerText = "¡Buena Suerte " + nombre + "!";
         const dimensionesValor = document.getElementById("dimensiones").value;
         const tema = document.getElementById("tema").value;
 
@@ -151,6 +151,17 @@ window.addEventListener("DOMContentLoaded", () => {
         tablaHTML += "</table>";
         document.getElementById("juego").innerHTML = tablaHTML;
     }
+    // Seleccionar el checkbox y el contenedor
+    const checkboxTemporizador = document.querySelector('input[name="opciones"][value="opcion1"]');
+    const contenedor = document.getElementById("contenedor");
+
+    // Inicialmente ocultar el contenedor
+    contenedor.style.visibility = "hidden";
+
+    // Evento para mostrar/ocultar el contenedor
+    checkboxTemporizador.addEventListener("change", function () {
+        contenedor.style.visibility = this.checked ? "visible" : "hidden";
+    });
 
               
 });
@@ -165,8 +176,8 @@ function voltearCarta(carta) {
     // si es la primera carta que hemos volteado
     if (!primeraCarta) {
         primeraCarta = carta;
-        if((aciertos * 2) === (ancho * alto)){
-            alert("Enhorabuena has ganado")
+        if((aciertos * 2) === numFotos){
+            alert("Enhorabuena has ganado ${numFotos}")
         }
     } else {
         // es la segunda carta
