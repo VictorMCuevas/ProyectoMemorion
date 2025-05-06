@@ -31,6 +31,19 @@
             <td><img src="./imagenes/animales/12.jpg" alt=""height="200px" width="200px"></td>
         </tr>
     </table>
-    <script src="script.js"></script>
+    <script >
+        // Leer parámetros de la URL
+        const params = new URLSearchParams(window.location.search);
+        const nombre = params.get("nombre");
+        const dimensiones = params.get("dimensiones");
+        const tema = params.get("tema");
+
+        // Mostrar los datos en la página
+        document.getElementById("tablero").innerHTML = `
+            <h2>¡Suerte ${nombre}!</h2>
+            <p>Dimensiones: ${dimensiones}</p>
+            <p>Tema: ${tema}</p>
+        `;
+    </script>
 </body>
 </html>

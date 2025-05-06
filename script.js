@@ -1,3 +1,7 @@
+let primeraCarta = null;
+let segundaCarta = null;
+let bloquear = false;
+
 window.addEventListener("DOMContentLoaded", () => {
     const tablero = document.getElementById("tablero");
     tablero.classList.add("animar-tablero");
@@ -10,6 +14,10 @@ window.addEventListener("DOMContentLoaded", () => {
     let alto;
     let numFotos;
     let fotos = [];
+    var centesimas = 0;
+    var segundos = 0;
+    var minutos = 0;
+
 
     const dimensiones = document.getElementById("dimensiones");
 
@@ -52,8 +60,40 @@ window.addEventListener("DOMContentLoaded", () => {
 
             inicio.style.display = "none";
             tablero.style.display = "block";
+
+            iniciarCronometro();
+            setInterval(iniciarCronometro, 10);
+            // clearInterval(iniciarCronometro); // Para detener el cronómetro
         }
     });
+
+    function iniciarCronometro() {
+        if (centesimas < 99) {
+            centesimas++;
+            if (centesimas < 10) { centesimas = "0"+centesimas }
+            Centesimas.innerHTML = ":"+centesimas;
+        }
+        if (centesimas == 99) {
+            centesimas = -1;
+        }
+        if (centesimas == 0) {
+            segundos ++;
+            if (segundos < 10) { segundos = "0"+segundos }
+            Segundos.innerHTML = ":"+segundos;
+        }
+        if (segundos == 59) {
+            segundos = -1;
+        }
+        if ( (centesimas == 0)&&(segundos == 0) ) {
+            minutos++;
+            if (minutos < 10) { minutos = "0"+minutos }
+            Minutos.innerHTML = ":"+minutos;
+        }
+        if (minutos == 59) {
+            minutos = -1;
+        }
+        
+    }
 
     function calcularFotos(alto, ancho) {
         return Math.floor((alto * ancho) / 2);
@@ -71,52 +111,78 @@ window.addEventListener("DOMContentLoaded", () => {
         fotos.sort(() => 0.5 - Math.random());
     }
 
-    /**function crearTabla(alto, ancho) {
-        let tablaHTML = "<table border='1'>";
+
+    function crearTabla(alto, ancho) {
+        const reverso = "./imagenes/dorso.jpg"; // Usa la imagen común oculta
+        let tablaHTML = "<table>";
         let cont = 0;
+
         for (let i = 0; i < alto; i++) {
             tablaHTML += "<tr>";
             for (let j = 0; j < ancho; j++) {
                 if (cont < fotos.length) {
-                    tablaHTML += `<td><img src="${fotos[cont]}" /></td>`;
+                    const imgSrc = fotos[cont];
+                    tablaHTML += `
+                    <td>
+                        <div class="card" data-id="${imgSrc}" onclick="voltearCarta(this)">
+                            <div class="card-inner">
+                                <div class="card-front">
+                                    <img src="${reverso}" alt="Reverso">
+                                </div>
+                                <div class="card-back">
+                                    <img src="${imgSrc}" alt="Foto">
+                                </div>
+                            </div>
+                        </div>
+                    </td>`;
                     cont++;
                 } else {
-                    tablaHTML += `<td>Celda impar Vacia</td>`;
+                    tablaHTML += "<td></td>";
                 }
             }
             tablaHTML += "</tr>";
         }
+
         tablaHTML += "</table>";
         document.getElementById("juego").innerHTML = tablaHTML;
-        
-    }*/
-        function crearTabla(alto, ancho) {
-            let tablaHTML = "<table>";
-            let cont = 0;
-            for (let i = 0; i < alto; i++) {
-                tablaHTML += "<tr>";
-                for (let j = 0; j < ancho; j++) {
-                    if (cont < fotos.length) {
-                        const imgSrc = fotos[cont];
-                        tablaHTML += `
-                          <td>
-                            <div class="card" onclick="this.classList.toggle('flipped')">
-                              <div class="card-inner">
-                                <div class="card-front"></div>
-                                <div class="card-back"><img src="${imgSrc}" /></div>
-                              </div>
-                            </div>
-                          </td>
-                        `;
-                        cont++;
-                    } else {
-                        tablaHTML += "<td></td>";
-                    }
-                }
-                tablaHTML += "</tr>";
-            }
-            tablaHTML += "</table>";
-            document.getElementById("juego").innerHTML = tablaHTML;
-        }
-        
+    }
+
+              
 });
+
+function voltearCarta(carta) {
+    if (bloquear || carta.classList.contains("flipped")) return;
+
+    // Volteamos la carta
+    carta.classList.add("flipped");
+
+    // Si es la primera carta que hemos volteado
+    if (!primeraCarta) {
+        primeraCarta = carta;
+    } else {
+        // Es la segunda carta
+        segundaCarta = carta;
+        bloquear = true;
+
+        // Obtenemos el ID de las dos cartas
+        const id1 = primeraCarta.getAttribute("data-id");
+        const id2 = segundaCarta.getAttribute("data-id");
+
+        // Verificamos si coinciden
+        if (id1 === id2) {
+            // Coinciden → se quedan boca arriba
+            primeraCarta = null;
+            segundaCarta = null;
+            bloquear = false;
+        } else {
+            // No coinciden → se voltean de nuevo
+            setTimeout(() => {
+                primeraCarta.classList.remove("flipped");
+                segundaCarta.classList.remove("flipped");
+                primeraCarta = null;
+                segundaCarta = null;
+                bloquear = false;
+            }, 1000); // Se voltean después de 1 segundo
+        }
+    }
+} 
