@@ -5,6 +5,8 @@ var contador = 0;
 var aciertos = 0;
 let fotos = [];
 let numFotos;
+let ancho;
+let alto;
 
 window.addEventListener("DOMContentLoaded", () => {
     const tablero = document.getElementById("tablero");
@@ -14,8 +16,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const inicio = document.getElementById("inicio");
     const menuPedirMedidas = document.getElementById("menuPedirMedidas");
 
-    let ancho;
-    let alto;
+
     var centesimas = 0;
     var segundos = 0;
     var minutos = 0;
@@ -164,7 +165,7 @@ function voltearCarta(carta) {
     // si es la primera carta que hemos volteado
     if (!primeraCarta) {
         primeraCarta = carta;
-        if(aciertos === ((ancho*alto)/2)){
+        if((aciertos * 2) === (ancho * alto)){
             alert("Enhorabuena has ganado")
         }
     } else {
