@@ -71,7 +71,7 @@ window.addEventListener("DOMContentLoaded", () => {
         fotos.sort(() => 0.5 - Math.random());
     }
 
-    function crearTabla(alto, ancho) {
+    /**function crearTabla(alto, ancho) {
         let tablaHTML = "<table border='1'>";
         let cont = 0;
         for (let i = 0; i < alto; i++) {
@@ -89,5 +89,34 @@ window.addEventListener("DOMContentLoaded", () => {
         tablaHTML += "</table>";
         document.getElementById("juego").innerHTML = tablaHTML;
         
-    }
+    }*/
+        function crearTabla(alto, ancho) {
+            let tablaHTML = "<table>";
+            let cont = 0;
+            for (let i = 0; i < alto; i++) {
+                tablaHTML += "<tr>";
+                for (let j = 0; j < ancho; j++) {
+                    if (cont < fotos.length) {
+                        const imgSrc = fotos[cont];
+                        tablaHTML += `
+                          <td>
+                            <div class="card" onclick="this.classList.toggle('flipped')">
+                              <div class="card-inner">
+                                <div class="card-front"></div>
+                                <div class="card-back"><img src="${imgSrc}" /></div>
+                              </div>
+                            </div>
+                          </td>
+                        `;
+                        cont++;
+                    } else {
+                        tablaHTML += "<td></td>";
+                    }
+                }
+                tablaHTML += "</tr>";
+            }
+            tablaHTML += "</table>";
+            document.getElementById("juego").innerHTML = tablaHTML;
+        }
+        
 });
