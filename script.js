@@ -73,7 +73,7 @@ window.addEventListener("DOMContentLoaded", () => {
     function iniciarCronometro() {
         if (centesimas < 99) {
             centesimas++;
-            if (centesimas < 10) { centesimas = "0"+centesimas }
+            if (centesimas < 10) { centesimas ="0"+centesimas }
             Centesimas.innerHTML = ":"+centesimas;
         }
         if (centesimas == 99) {
@@ -176,7 +176,7 @@ function voltearCarta(carta) {
     // si es la primera carta que hemos volteado
     if (!primeraCarta) {
         primeraCarta = carta;
-        if((aciertos * 2) === numFotos){
+        if((aciertos) === numFotos){
             alert("Enhorabuena has ganado ${numFotos}")
         }
     } else {
