@@ -9,7 +9,7 @@ h1 {
     background-color: gray;
   }
 
-  table{
+  #formulario{
     background-color: darkgrey;
     margin-left: 34%;
     border: solid, black,2px ;
@@ -25,19 +25,55 @@ h1 {
   #iniciar {
     margin-left: 50%;
   }
+  #menuPedirMedidas {
+    display: none;
+    padding: 10px;
+  }
   #tablero {
+    display: none;
+    animation: pulsar 1s forwards;
     background-image: url("/imagenes/fondo.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: centers;
   }
+  @keyframes pulsar {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.01);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  .animar-tablero {
+    animation: pulsar 1s forwards;
+  }
+  #tablero table{
+    padding-left: 30%;
+  }
   .cronometro{
-    text-align: right;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    padding-top: 20px;
+    padding-left: 10%;
+    color: aliceblue;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
   }
   .contador{
-   
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+   color: aliceblue;
+    font-family: Arial, Helvetica, sans-serif;
   }
+  
+
+
+
+
+  
 
   

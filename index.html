@@ -7,44 +7,85 @@
     <link href="styles/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <h1>Juego de memoria</h1>
-    <table>
-        <tr>
-            <th>Nombre de jugador:</th>
-            <td>
-                <input type="text" id="nombre">
+    <div id="inicio">
+        <h1>Juego de memoria</h1>
+        <table id="formulario">
+            <tr>
+                <th>Nombre de jugador:</th>
+                <td>
+                    <input type="text" id="nombre">
+                </td>
+            </tr>
+            <tr>
+                <th>Modo de juego: </th>
+                <td>
+                    <select id="modoJuego">
+                        <option selected default disabled>Seleccione un tablero</option>
+                        <option>Normal</option>
+                        <option>Flash</option>
+                    </select>
+                </td>
+            </tr>
+            
+            <tr>
+                <th>Dimensiones: </th>
+                <td>
+                    <select id="dimensiones">
+                        <option selected default disabled>Seleccione un tablero</option>
+                        <option value="4">Fácil (4x4)</option>
+                        <option value="5">Medio (5x4)</option>
+                        <option value="6">Difícil (6x6)</option>
+                        <option value="7">Personalizado</option>
+                    </select>
+                    <div id="menuPedirMedidas">
+                        <label for="ancho">Ancho: </label>
+                        <input type="number" id="ancho" min="1" max="6" />
+                        <label for="alto">Alto: </label>
+                        <input type="number" id="alto" min="1" max="6" />
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <th>Tema:</th>
+                <td>
+                    <select id="tema">
+                        <option selected default disabled>Seleccione un tema</option>
+                        <option>Deportes</option>
+                        <option>Animales</option>
+                        <option>Banderas</option>
+                        <option>Informatica</option>
+                        <option>Aleatorio</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>                <td>
+                <form id="formCheckboxes">
+                    <label><input type="checkbox" name="opciones" value="opcion1">Temporizador</label><br>
+                  </form> 
             </td>
-        </tr>
-        <tr>
-            <th>Dimensiones: </th>
-            <td>
-                <select id="dimensiones">
-                    <option selected default disabled>Seleccione un tablero</option>
-                    <option>Fácil (4x4)</option>
-                    <option>Medio (5x4)</option>
-                    <option>Difícil (6x6)</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th>Tema:</th>
-            <td>
-                <select id="tema">
-                    <option selected default disabled>Seleccione un tema</option>
-                    <option>Deportes</option>
-                    <option>Animales</option>
-                    <option>Banderas</option>
-                    <option>Informática</option>
-                    <option>Aleatorio</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <a href="pantalla.html"><button id="iniciar">¡A JUGAR!</button></a>
-            </td>
-        </tr>
-    </table>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button id="iniciar">¡A JUGAR!</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="tablero">
+        <div class="cronometro" style="text-align: left">
+            <table>
+                <tr><th id="nombrejugador" ></th>
+                   
+                    <th id="displayCrono" >Cronometro: 00:00:00</th>
+                    <br>
+                    <th  id="displaycont" style=" text-align: left;">contador: 0</th>
+                </tr>
+            </table>
+        </div>
+    
+        <div id="juego"></div>
+    </div>
 
     <script src="script.js"></script>
 </body>
