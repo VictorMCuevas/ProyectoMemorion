@@ -176,8 +176,8 @@ function voltearCarta(carta) {
     // si es la primera carta que hemos volteado
     if (!primeraCarta) {
         primeraCarta = carta;
-        if((aciertos) === numFotos){
-            alert("Enhorabuena has ganado ${numFotos}")
+        if((aciertos) === ((ancho * alto / 2))){
+            alert("Enhorabuena has ganado ${nombre}")
         }
     } else {
         // es la segunda carta
