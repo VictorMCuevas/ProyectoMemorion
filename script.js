@@ -150,6 +150,15 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     mostrarResultados();
+
+    document.getElementById("botonHistorial").addEventListener("click", () => {
+        const contenidoHistorial = document.getElementById("contenidoHistorial");
+        if (contenidoHistorial.style.display === "none") {
+            contenidoHistorial.style.display = "block"; // Mostrar el contenido
+        } else {
+            contenidoHistorial.style.display = "none"; // Ocultar el contenido
+        }
+    });
               
 });
 
