@@ -5,10 +5,11 @@ var contador = 0;
 var aciertos = 0;
 let fotos = [];
 var numFotos;
+var parejasCreadas = 0;
 let ancho;
 let alto;
 var temasDisponibles = ["deportes", "animales", "banderas", "informática"];
-var parejasCreadas = 0;
+//Variables para el cronómetro
 var segundos = 0;
 
 
@@ -61,7 +62,6 @@ window.addEventListener("DOMContentLoaded", () => {
                 console.log("Tema aleatorio seleccionado:", temaAleatorio); // Verificar el tema aleatorio
                 tema = temaAleatorio;
             }
-
             const rutaImagenes = "./imagenes/" + tema + "/";
             guardarImg(rutaImagenes, numFotos);
             crearTabla(alto, ancho);
@@ -84,7 +84,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     function calcularFotos(alto, ancho) {
-        parejasCreadas = Math.floor((alto * ancho) / 2);
+        parejasCreadas =  Math.floor((alto * ancho) / 2);
         return parejasCreadas;
     }
 
@@ -149,6 +149,7 @@ window.addEventListener("DOMContentLoaded", () => {
         contenedor.style.visibility = this.checked ? "visible" : "hidden";
     });
 
+    mostrarResultados();
               
 });
 
@@ -168,14 +169,6 @@ function voltearCarta(carta) {
         segundaCarta = carta;
         bloquear = true;
 
-        contador++;
-        const displayCont = document.getElementById("contador");
-        if (displayCont) {
-            displayCont.innerText = "Intentos: " + contador;
-        } else {
-            console.error("Elemento con id 'contador' no encontrado en el DOM.");
-        }
-
         // obtenemos el ID de las dos cartas
         const id1 = primeraCarta.getAttribute("data-id");
         const id2 = segundaCarta.getAttribute("data-id");
@@ -188,12 +181,19 @@ function voltearCarta(carta) {
             bloquear = false;
             aciertos++
             setTimeout(() => {
-                if((aciertos) === parejasCreadas){
+                if (aciertos === parejasCreadas) {
                     const nombre = document.getElementById("nombre").value; // Obtener el nombre del jugador
-                    const tiempo = `${segundos}`; // Formato del tiempo
+                    const tiempo = parseInt(segundos); // Formato del tiempo como número
                     const intentos = contador;
-                    // Guardar la partida en el historial
-                    guardarPartida(nombre, tiempo, intentos);
+
+                    // Obtener resultados previos de localStorage
+                    let resultados = JSON.parse(localStorage.getItem("resultados")) || [];
+
+                    // Agregar el nuevo resultado
+                    resultados.push({ nombre, tiempo, intentos });
+
+                    // Guardar los resultados actualizados en localStorage
+                    localStorage.setItem("resultados", JSON.stringify(resultados));
 
                     // Mostrar ventana emergente
                     mostrarVentanaEmergente(nombre, tiempo, intentos);
@@ -208,6 +208,13 @@ function voltearCarta(carta) {
                 primeraCarta = null;
                 segundaCarta = null;
                 bloquear = false;
+
+                contador++;
+                const displayCont = document.getElementById("contador");
+                if (displayCont) {
+                    displayCont.innerText = "contador: " + contador;
+                }
+
             }, 1000); // se voltean después de 1 segundo
         }
 
@@ -215,23 +222,10 @@ function voltearCarta(carta) {
 
 }
 
-function guardarPartida(nombre, tiempo, intentos) {
-    // Obtener el historial actual de partidas desde localStorage
-    var historial = JSON.parse(localStorage.getItem("historialPartidas")) || [];
-
-    // Agregar la nueva partida al historial
-    historial.push({ nombre, tiempo, intentos });
-
-    // Guardar el historial actualizado en localStorage
-    localStorage.setItem("historialPartidas", JSON.stringify(historial));
-    console.log("Historial actualizado:", historial);
-
-
-}
-
 // Función para mostrar la ventana emergente
 function mostrarVentanaEmergente(nombre, tiempo, intentos) {
-    // Crear el contenido de la ventana emergente
+    console.log("Mostrando ventana emergente"); 
+
     const resultadoHTML = `
         <div id="ventanaResultado" class="resultado">
             <div class="resultado-content">
@@ -243,18 +237,39 @@ function mostrarVentanaEmergente(nombre, tiempo, intentos) {
         </div>
     `;
 
-    // Insertar el resultado en el cuerpo del documento
     document.body.insertAdjacentHTML("beforeend", resultadoHTML);
 
-    // Mostrar el resultado
     const resultado = document.getElementById("ventanaResultado");
     resultado.style.display = "block";
 
     // Cerrar el resultado al hacer clic en el botón
     document.getElementById("cerrarResultado").addEventListener("click", () => {
+        console.log("Cerrando resultado"); // Verificar si el evento se ejecuta
 
         resultado.style.display = "none";
-        resultado.remove();
+        resultado.remove(); // Eliminar el resultado del DOM
         location.reload();
     });
+}
+
+function obtenerResultadosOrdenados() {
+    let resultados = JSON.parse(localStorage.getItem("resultados")) || [];
+    // Ordenar por tiempo (de menor a mayor)
+    resultados.sort((a, b) => a.tiempo - b.tiempo);
+    return resultados;
+}
+
+function mostrarResultados() {
+    const resultados = obtenerResultadosOrdenados();
+    const listaResultados = document.getElementById("listaResultados");
+
+    if (listaResultados) {
+        listaResultados.innerHTML = ""; // Limpiar la lista
+
+        resultados.forEach((resultado, index) => {
+            const li = document.createElement("li");
+            li.textContent = `${index + 1}. ${resultado.nombre} - Tiempo: ${resultado.tiempo}s - Intentos: ${resultado.intentos}`;
+            listaResultados.appendChild(li);
+        });
+    }
 }
