@@ -9,8 +9,10 @@ var parejasCreadas = 0;
 let ancho;
 let alto;
 var temasDisponibles = ["deportes", "animales", "banderas", "informática"];
-//Variables para el cronómetro
 var segundos = 0;
+var partidasnNormal = [];
+var partidasFlash= [];
+var filtro;
 
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -29,6 +31,7 @@ window.addEventListener("DOMContentLoaded", () => {
             menuPedirMedidas.style.display = "none";
         }
     });
+   
 
     btnInsertar.addEventListener('click', () => {
         const nombre = document.getElementById("nombre").value;
@@ -101,6 +104,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
 
+
     function crearTabla(alto, ancho) {
         const reverso = "./imagenes/dorso.jpg"; // Usa la imagen oculta
         let tablaHTML = "<table>";
@@ -153,11 +157,21 @@ window.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("botonHistorial").addEventListener("click", () => {
         const contenidoHistorial = document.getElementById("contenidoHistorial");
+        const btnFiltroTiempo = document.getElementById("filtroTiempo");
+        const btnFiltroIntentos = document.getElementById("filtroIntentos");
+
         if (contenidoHistorial.style.display === "none") {
             contenidoHistorial.style.display = "block"; // Mostrar el contenido
         } else {
             contenidoHistorial.style.display = "none"; // Ocultar el contenido
         }
+        btnFiltroIntentos.addEventListener('click', () => {
+            filtro = "intentos";
+        });
+        
+        btnFiltroTiempo.addEventListener('click', () => {
+            filtro = "tiempo";
+        });
     });
               
 });
