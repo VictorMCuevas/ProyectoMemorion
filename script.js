@@ -8,6 +8,10 @@ var numFotos;
 let ancho;
 let alto;
 
+//Variables para el cronómetro
+var segundos = 0;
+
+
 window.addEventListener("DOMContentLoaded", () => {
     const tablero = document.getElementById("tablero");
     tablero.classList.add("animar-tablero");
@@ -15,13 +19,6 @@ window.addEventListener("DOMContentLoaded", () => {
     const btnInsertar = document.getElementById("iniciar");
     const inicio = document.getElementById("inicio");
     const menuPedirMedidas = document.getElementById("menuPedirMedidas");
-
-
-    var centesimas = 0;
-    var segundos = 0;
-    var minutos = 0;
-
-
     const dimensiones = document.getElementById("dimensiones");
 
     dimensiones.addEventListener('click', () => {
@@ -65,36 +62,16 @@ window.addEventListener("DOMContentLoaded", () => {
             tablero.style.display = "block";
 
             iniciarCronometro();
-            setInterval(iniciarCronometro, 10);
-            // clearInterval(iniciarCronometro); // Para detener el cronómetro
+            setInterval(iniciarCronometro, 1000);
         }
     });
 
-    function iniciarCronometro() {
-        if (centesimas < 99) {
-            centesimas++;
-            if (centesimas < 10) { centesimas ="0"+centesimas }
-            Centesimas.innerHTML = ":"+centesimas;
+    function iniciarCronometro() {       
+        segundos ++;
+        if (segundos < 10) { 
+            segundos = "0"+segundos 
         }
-        if (centesimas == 99) {
-            centesimas = -1;
-        }
-        if (centesimas == 0) {
-            segundos ++;
-            if (segundos < 10) { segundos = "0"+segundos }
-            Segundos.innerHTML = ":"+segundos;
-        }
-        if (segundos == 59) {
-            segundos = -1;
-        }
-        if ( (centesimas == 0)&&(segundos == 0) ) {
-            minutos++;
-            if (minutos < 10) { minutos = "0"+minutos }
-            Minutos.innerHTML = ":"+minutos;
-        }
-        if (minutos == 59) {
-            minutos = -1;
-        }
+        Segundos.innerHTML = "Tiempo: "+segundos;
         
     }
 
@@ -176,9 +153,7 @@ function voltearCarta(carta) {
     // si es la primera carta que hemos volteado
     if (!primeraCarta) {
         primeraCarta = carta;
-        if((aciertos) === ((ancho * alto / 2))){
-            alert("Enhorabuena has ganado ${nombre}")
-        }
+
     } else {
         // es la segunda carta
         segundaCarta = carta;
@@ -195,6 +170,21 @@ function voltearCarta(carta) {
             segundaCarta = null;
             bloquear = false;
             aciertos++
+            setTimeout(() => {
+                if((aciertos) === ((ancho * alto / 2))){
+                    const nombre = document.getElementById("nombre").value; // Obtener el nombre del jugador
+                    const tiempo = `${segundos}`; // Formato del tiempo
+                    const intentos = contador;
+
+
+                    // Guardar datos en localStorage
+                    localStorage.setItem("nombre", nombre);
+                    localStorage.setItem("tiempo", tiempo);
+                    localStorage.setItem("intentos", intentos);
+                    // Mostrar ventana emergente
+                    mostrarVentanaEmergente(nombre, tiempo, intentos);
+                }
+            }, 500);
 
         } else {
             // si no coinciden se voltean de nuevo
@@ -216,4 +206,36 @@ function voltearCarta(carta) {
 
     }
 
+}
+
+// Función para mostrar la ventana emergente
+function mostrarVentanaEmergente(nombre, tiempo, intentos) {
+    // Crear el contenido de la ventana emergente
+    console.log("Mostrando ventana emergente"); // Verificar si la función se ejecuta
+
+    const modalHTML = `
+        <div id="modalGanador" class="modal">
+            <div class="modal-content">
+                <h2>¡Enhorabuena, ${nombre}!</h2>
+                <p>Tiempo: ${tiempo}</p>
+                <p>Intentos: ${intentos}</p>
+                <button id="cerrarModal">Cerrar</button>
+            </div>
+        </div>
+    `;
+
+    // Insertar el modal en el cuerpo del documento
+    document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+    // Mostrar el modal
+    const modal = document.getElementById("modalGanador");
+    modal.style.display = "block";
+
+    // Cerrar el modal al hacer clic en el botón
+    document.getElementById("cerrarModal").addEventListener("click", () => {
+        console.log("Cerrando modal"); // Verificar si el evento se ejecuta
+
+        modal.style.display = "none";
+        modal.remove(); // Eliminar el modal del DOM
+    });
 }
