@@ -4,7 +4,16 @@ let bloquear = false;
 var contador = 0;
 var aciertos = 0;
 let fotos = [];
-let numFotos;
+var numFotos;
+var parejasCreadas = 0;
+let ancho;
+let alto;
+var temasDisponibles = ["deportes", "animales", "banderas", "informática"];
+var segundos = 0;
+var partidasnNormal = [];
+var partidasFlash= [];
+var filtro;
+
 
 window.addEventListener("DOMContentLoaded", () => {
     const tablero = document.getElementById("tablero");
@@ -13,14 +22,6 @@ window.addEventListener("DOMContentLoaded", () => {
     const btnInsertar = document.getElementById("iniciar");
     const inicio = document.getElementById("inicio");
     const menuPedirMedidas = document.getElementById("menuPedirMedidas");
-
-    let ancho;
-    let alto;
-    var centesimas = 0;
-    var segundos = 0;
-    var minutos = 0;
-
-
     const dimensiones = document.getElementById("dimensiones");
 
     dimensiones.addEventListener('click', () => {
@@ -30,12 +31,13 @@ window.addEventListener("DOMContentLoaded", () => {
             menuPedirMedidas.style.display = "none";
         }
     });
+   
 
     btnInsertar.addEventListener('click', () => {
         const nombre = document.getElementById("nombre").value;
-        document.getElementById("nombrejugador").innerText = nombre;
+        document.getElementById("nombrejugador").innerText = "¡Buena Suerte " + nombre + "!";
         const dimensionesValor = document.getElementById("dimensiones").value;
-        const tema = document.getElementById("tema").value;
+        let tema = document.getElementById("tema").value;
 
         if (nombre === "" || dimensionesValor === "" || tema === "") {
             alert("Por favor, rellene los campos");
@@ -56,6 +58,13 @@ window.addEventListener("DOMContentLoaded", () => {
             }
 
             numFotos = calcularFotos(alto, ancho);
+
+            if(tema === "aleatorio"){
+                const posicionAleatoria = Math.floor(Math.random() * temasDisponibles.length);
+                const temaAleatorio = temasDisponibles[posicionAleatoria];
+                console.log("Tema aleatorio seleccionado:", temaAleatorio); // Verificar el tema aleatorio
+                tema = temaAleatorio;
+            }
             const rutaImagenes = "./imagenes/" + tema + "/";
             guardarImg(rutaImagenes, numFotos);
             crearTabla(alto, ancho);
@@ -64,41 +73,22 @@ window.addEventListener("DOMContentLoaded", () => {
             tablero.style.display = "block";
 
             iniciarCronometro();
-            setInterval(iniciarCronometro, 10);
-            // clearInterval(iniciarCronometro); // Para detener el cronómetro
+            setInterval(iniciarCronometro, 1000);
         }
     });
 
-    function iniciarCronometro() {
-        if (centesimas < 99) {
-            centesimas++;
-            if (centesimas < 10) { centesimas = "0"+centesimas }
-            Centesimas.innerHTML = ":"+centesimas;
+    function iniciarCronometro() {       
+        segundos ++;
+        if (segundos < 10) { 
+            segundos = "0"+segundos 
         }
-        if (centesimas == 99) {
-            centesimas = -1;
-        }
-        if (centesimas == 0) {
-            segundos ++;
-            if (segundos < 10) { segundos = "0"+segundos }
-            Segundos.innerHTML = ":"+segundos;
-        }
-        if (segundos == 59) {
-            segundos = -1;
-        }
-        if ( (centesimas == 0)&&(segundos == 0) ) {
-            minutos++;
-            if (minutos < 10) { minutos = "0"+minutos }
-            Minutos.innerHTML = ":"+minutos;
-        }
-        if (minutos == 59) {
-            minutos = -1;
-        }
+        Segundos.innerHTML = "Tiempo: "+segundos;
         
     }
 
     function calcularFotos(alto, ancho) {
-        return Math.floor((alto * ancho) / 2);
+        parejasCreadas =  Math.floor((alto * ancho) / 2);
+        return parejasCreadas;
     }
 
     function guardarImg(rutaImagenes, numFotos) {
@@ -112,6 +102,7 @@ window.addEventListener("DOMContentLoaded", () => {
         // Mezclar aleatoriamente
         fotos.sort(() => 0.5 - Math.random());
     }
+
 
 
     function crearTabla(alto, ancho) {
@@ -150,7 +141,38 @@ window.addEventListener("DOMContentLoaded", () => {
         tablaHTML += "</table>";
         document.getElementById("juego").innerHTML = tablaHTML;
     }
+    // Seleccionar el checkbox y el contenedor
+    const checkboxTemporizador = document.querySelector('input[name="opciones"][value="opcion1"]');
+    const contenedor = document.getElementById("contenedor");
 
+    // Inicialmente ocultar el contenedor
+    contenedor.style.visibility = "hidden";
+
+    // Evento para mostrar/ocultar el contenedor
+    checkboxTemporizador.addEventListener("change", function () {
+        contenedor.style.visibility = this.checked ? "visible" : "hidden";
+    });
+
+    mostrarResultados();
+
+    document.getElementById("botonHistorial").addEventListener("click", () => {
+        const contenidoHistorial = document.getElementById("contenidoHistorial");
+        const btnFiltroTiempo = document.getElementById("filtroTiempo");
+        const btnFiltroIntentos = document.getElementById("filtroIntentos");
+
+        if (contenidoHistorial.style.display === "none") {
+            contenidoHistorial.style.display = "block"; // Mostrar el contenido
+        } else {
+            contenidoHistorial.style.display = "none"; // Ocultar el contenido
+        }
+        btnFiltroIntentos.addEventListener('click', () => {
+            filtro = "intentos";
+        });
+        
+        btnFiltroTiempo.addEventListener('click', () => {
+            filtro = "tiempo";
+        });
+    });
               
 });
 
@@ -164,9 +186,7 @@ function voltearCarta(carta) {
     // si es la primera carta que hemos volteado
     if (!primeraCarta) {
         primeraCarta = carta;
-        if(aciertos === ((ancho*alto)/2)){
-            alert("Enhorabuena has ganado")
-        }
+
     } else {
         // es la segunda carta
         segundaCarta = carta;
@@ -183,6 +203,25 @@ function voltearCarta(carta) {
             segundaCarta = null;
             bloquear = false;
             aciertos++
+            setTimeout(() => {
+                if (aciertos === parejasCreadas) {
+                    const nombre = document.getElementById("nombre").value; // Obtener el nombre del jugador
+                    const tiempo = parseInt(segundos); // Formato del tiempo como número
+                    const intentos = contador;
+
+                    // Obtener resultados previos de localStorage
+                    let resultados = JSON.parse(localStorage.getItem("resultados")) || [];
+
+                    // Agregar el nuevo resultado
+                    resultados.push({ nombre, tiempo, intentos });
+
+                    // Guardar los resultados actualizados en localStorage
+                    localStorage.setItem("resultados", JSON.stringify(resultados));
+
+                    // Mostrar ventana emergente
+                    mostrarVentanaEmergente(nombre, tiempo, intentos);
+                }
+            }, 500);
 
         } else {
             // si no coinciden se voltean de nuevo
@@ -204,4 +243,56 @@ function voltearCarta(carta) {
 
     }
 
+}
+
+// Función para mostrar la ventana emergente
+function mostrarVentanaEmergente(nombre, tiempo, intentos) {
+    console.log("Mostrando ventana emergente"); 
+
+    const resultadoHTML = `
+        <div id="ventanaResultado" class="resultado">
+            <div class="resultado-content">
+                <h2>¡Enhorabuena, ${nombre}!</h2>
+                <p>Tiempo: ${tiempo}</p>
+                <p>Intentos: ${intentos}</p>
+                <button id="cerrarResultado">Cerrar</button>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML("beforeend", resultadoHTML);
+
+    const resultado = document.getElementById("ventanaResultado");
+    resultado.style.display = "block";
+
+    // Cerrar el resultado al hacer clic en el botón
+    document.getElementById("cerrarResultado").addEventListener("click", () => {
+        console.log("Cerrando resultado"); // Verificar si el evento se ejecuta
+
+        resultado.style.display = "none";
+        resultado.remove(); // Eliminar el resultado del DOM
+        location.reload();
+    });
+}
+
+function obtenerResultadosOrdenados() {
+    let resultados = JSON.parse(localStorage.getItem("resultados")) || [];
+    // Ordenar por tiempo (de menor a mayor)
+    resultados.sort((a, b) => a.tiempo - b.tiempo);
+    return resultados;
+}
+
+function mostrarResultados() {
+    const resultados = obtenerResultadosOrdenados();
+    const listaResultados = document.getElementById("listaResultados");
+
+    if (listaResultados) {
+        listaResultados.innerHTML = ""; // Limpiar la lista
+
+        resultados.forEach((resultado, index) => {
+            const li = document.createElement("li");
+            li.textContent = `${index + 1}. ${resultado.nombre} - Tiempo: ${resultado.tiempo}s - Intentos: ${resultado.intentos}`;
+            listaResultados.appendChild(li);
+        });
+    }
 }

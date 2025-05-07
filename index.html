@@ -8,6 +8,17 @@
 </head>
 <body>
     <div id="inicio">
+        <div id="historial">
+            <button id="botonHistorial">Historial de partidas</button>
+            
+            <div id="contenidoHistorial" style="display: none;">
+                <button id="filtarTiempo" value="tiempo">Filtrar por tiempo</button>
+                <div id="porTiempo"></div>
+                <button id="filtarIntentos" value="intentos">Filtrar por intentos</button>
+                <div id="porIntentos"></div>
+                <ul id="listaResultados"></ul>
+            </div>
+        </div>
         <h1>Juego de memoria</h1>
         <table id="formulario">
             <tr>
@@ -41,7 +52,7 @@
                         <label for="ancho">Ancho: </label>
                         <input type="number" id="ancho" min="1" max="6" />
                         <label for="alto">Alto: </label>
-                        <input type="number" id="alto" min="1" max="6" />
+                        <input type="number" id="alto" min="2" max="6" />
                     </div>
 
                 </td>
@@ -51,19 +62,21 @@
                 <td>
                     <select id="tema">
                         <option selected default disabled>Seleccione un tema</option>
-                        <option>Deportes</option>
-                        <option>Animales</option>
-                        <option>Banderas</option>
-                        <option>Informatica</option>
-                        <option>Aleatorio</option>
+                        <option value="deportes">Deportes</option>
+                        <option value="animales">Animales</option>
+                        <option value="banderas">Banderas</option>
+                        <option value="informática">Informática</option>
+                        <option value="aleatorio">Aleatorio</option>
                     </select>
                 </td>
             </tr>
-            <tr>                <td>
-                <form id="formCheckboxes">
-                    <label><input type="checkbox" name="opciones" value="opcion1">Temporizador</label><br>
-                  </form> 
-            </td>
+            <tr>
+                <td>
+                    <form id="formCheckboxes">
+                        <label><input type="checkbox" name="opciones" value="opcion1">Cronómetro</label>
+                        <br>
+                    </form> 
+                </td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -77,9 +90,7 @@
             <table>
                 <tr><th id="nombrejugador" ></th>
                     <th id="contenedor">
-                        <div class="reloj" id="Minutos">00</div>
-                        <div class="reloj" id="Segundos">:00</div>
-                        <div class="reloj" id="Centesimas">:00</div>
+                        <div class="reloj" id="Segundos">00</div>
                     </th>
                     <br>
                     <th  id="contador" style=" text-align: left;">contador: 0</th>
@@ -90,8 +101,6 @@
         
     </div>
     
-
-   
 
     <script src="script.js"></script>
     <link href="styles/style.css" rel="stylesheet" type="text/css">
