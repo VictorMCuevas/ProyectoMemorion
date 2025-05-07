@@ -4,7 +4,9 @@ let bloquear = false;
 var contador = 0;
 var aciertos = 0;
 let fotos = [];
-let numFotos;
+var numFotos;
+let ancho;
+let alto;
 
 window.addEventListener("DOMContentLoaded", () => {
     const tablero = document.getElementById("tablero");
@@ -14,8 +16,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const inicio = document.getElementById("inicio");
     const menuPedirMedidas = document.getElementById("menuPedirMedidas");
 
-    let ancho;
-    let alto;
+
     var centesimas = 0;
     var segundos = 0;
     var minutos = 0;
@@ -33,7 +34,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     btnInsertar.addEventListener('click', () => {
         const nombre = document.getElementById("nombre").value;
-        document.getElementById("nombrejugador").innerText = nombre;
+        document.getElementById("nombrejugador").innerText = "¡Buena Suerte " + nombre + "!";
         const dimensionesValor = document.getElementById("dimensiones").value;
         const tema = document.getElementById("tema").value;
 
@@ -72,7 +73,7 @@ window.addEventListener("DOMContentLoaded", () => {
     function iniciarCronometro() {
         if (centesimas < 99) {
             centesimas++;
-            if (centesimas < 10) { centesimas = "0"+centesimas }
+            if (centesimas < 10) { centesimas ="0"+centesimas }
             Centesimas.innerHTML = ":"+centesimas;
         }
         if (centesimas == 99) {
@@ -150,6 +151,17 @@ window.addEventListener("DOMContentLoaded", () => {
         tablaHTML += "</table>";
         document.getElementById("juego").innerHTML = tablaHTML;
     }
+    // Seleccionar el checkbox y el contenedor
+    const checkboxTemporizador = document.querySelector('input[name="opciones"][value="opcion1"]');
+    const contenedor = document.getElementById("contenedor");
+
+    // Inicialmente ocultar el contenedor
+    contenedor.style.visibility = "hidden";
+
+    // Evento para mostrar/ocultar el contenedor
+    checkboxTemporizador.addEventListener("change", function () {
+        contenedor.style.visibility = this.checked ? "visible" : "hidden";
+    });
 
               
 });
@@ -164,8 +176,8 @@ function voltearCarta(carta) {
     // si es la primera carta que hemos volteado
     if (!primeraCarta) {
         primeraCarta = carta;
-        if(aciertos === ((ancho*alto)/2)){
-            alert("Enhorabuena has ganado")
+        if((aciertos) === ((ancho * alto / 2))){
+            alert("Enhorabuena has ganado ${nombre}")
         }
     } else {
         // es la segunda carta
