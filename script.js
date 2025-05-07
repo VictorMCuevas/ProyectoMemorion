@@ -154,13 +154,34 @@ window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("botonHistorial").addEventListener("click", () => {
         const contenidoHistorial = document.getElementById("contenidoHistorial");
         if (contenidoHistorial.style.display === "none") {
-            contenidoHistorial.style.display = "block"; // Mostrar el contenido
+            contenidoHistorial.style.display = "block"; // Mostrar botones
+
+            document.getElementById("porTiempo").addEventListener("click", () => {
+                const listaResultados = document.getElementById("listaResultados");
+                if (listaResultados.style.display === "none") {
+                    listaResultados.style.display = "block"; // Mostrar botones
+                } else {
+                    listaResultados.style.display = "none"; // Ocultar botones
+                }
+            });
+
+
+            document.getElementById("porIntentos").addEventListener("click", () => {
+                const listaResultados = document.getElementById("listaResultados");
+                if (listaResultados.style.display === "none") {
+                    listaResultados.style.display = "block"; // Mostrar botones
+                } else {
+                    listaResultados.style.display = "none"; // Ocultar botones
+                }
+            });
+
         } else {
-            contenidoHistorial.style.display = "none"; // Ocultar el contenido
+            contenidoHistorial.style.display = "none"; // Ocultar botones
         }
     });
-              
 });
+              
+
 
 function voltearCarta(carta) {
 
