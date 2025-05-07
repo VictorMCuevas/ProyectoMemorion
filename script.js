@@ -7,8 +7,8 @@ let fotos = [];
 var numFotos;
 let ancho;
 let alto;
-
-//Variables para el cronómetro
+var temasDisponibles = ["deportes", "animales", "banderas", "informática"];
+var parejasCreadas = 0;
 var segundos = 0;
 
 
@@ -33,7 +33,7 @@ window.addEventListener("DOMContentLoaded", () => {
         const nombre = document.getElementById("nombre").value;
         document.getElementById("nombrejugador").innerText = "¡Buena Suerte " + nombre + "!";
         const dimensionesValor = document.getElementById("dimensiones").value;
-        const tema = document.getElementById("tema").value;
+        let tema = document.getElementById("tema").value;
 
         if (nombre === "" || dimensionesValor === "" || tema === "") {
             alert("Por favor, rellene los campos");
@@ -54,6 +54,14 @@ window.addEventListener("DOMContentLoaded", () => {
             }
 
             numFotos = calcularFotos(alto, ancho);
+
+            if(tema === "aleatorio"){
+                const posicionAleatoria = Math.floor(Math.random() * temasDisponibles.length);
+                const temaAleatorio = temasDisponibles[posicionAleatoria];
+                console.log("Tema aleatorio seleccionado:", temaAleatorio); // Verificar el tema aleatorio
+                tema = temaAleatorio;
+            }
+
             const rutaImagenes = "./imagenes/" + tema + "/";
             guardarImg(rutaImagenes, numFotos);
             crearTabla(alto, ancho);
@@ -76,7 +84,8 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     function calcularFotos(alto, ancho) {
-        return Math.floor((alto * ancho) / 2);
+        parejasCreadas = Math.floor((alto * ancho) / 2);
+        return parejasCreadas;
     }
 
     function guardarImg(rutaImagenes, numFotos) {
@@ -159,6 +168,14 @@ function voltearCarta(carta) {
         segundaCarta = carta;
         bloquear = true;
 
+        contador++;
+        const displayCont = document.getElementById("contador");
+        if (displayCont) {
+            displayCont.innerText = "Intentos: " + contador;
+        } else {
+            console.error("Elemento con id 'contador' no encontrado en el DOM.");
+        }
+
         // obtenemos el ID de las dos cartas
         const id1 = primeraCarta.getAttribute("data-id");
         const id2 = segundaCarta.getAttribute("data-id");
@@ -171,16 +188,13 @@ function voltearCarta(carta) {
             bloquear = false;
             aciertos++
             setTimeout(() => {
-                if((aciertos) === ((ancho * alto / 2))){
+                if((aciertos) === parejasCreadas){
                     const nombre = document.getElementById("nombre").value; // Obtener el nombre del jugador
                     const tiempo = `${segundos}`; // Formato del tiempo
                     const intentos = contador;
+                    // Guardar la partida en el historial
+                    guardarPartida(nombre, tiempo, intentos);
 
-
-                    // Guardar datos en localStorage
-                    localStorage.setItem("nombre", nombre);
-                    localStorage.setItem("tiempo", tiempo);
-                    localStorage.setItem("intentos", intentos);
                     // Mostrar ventana emergente
                     mostrarVentanaEmergente(nombre, tiempo, intentos);
                 }
@@ -194,13 +208,6 @@ function voltearCarta(carta) {
                 primeraCarta = null;
                 segundaCarta = null;
                 bloquear = false;
-
-                contador++;
-                const displayCont = document.getElementById("contador");
-                if (displayCont) {
-                    displayCont.innerText = "contador: " + contador;
-                }
-
             }, 1000); // se voltean después de 1 segundo
         }
 
@@ -208,34 +215,46 @@ function voltearCarta(carta) {
 
 }
 
+function guardarPartida(nombre, tiempo, intentos) {
+    // Obtener el historial actual de partidas desde localStorage
+    var historial = JSON.parse(localStorage.getItem("historialPartidas")) || [];
+
+    // Agregar la nueva partida al historial
+    historial.push({ nombre, tiempo, intentos });
+
+    // Guardar el historial actualizado en localStorage
+    localStorage.setItem("historialPartidas", JSON.stringify(historial));
+    console.log("Historial actualizado:", historial);
+
+
+}
+
 // Función para mostrar la ventana emergente
 function mostrarVentanaEmergente(nombre, tiempo, intentos) {
     // Crear el contenido de la ventana emergente
-    console.log("Mostrando ventana emergente"); // Verificar si la función se ejecuta
-
-    const modalHTML = `
-        <div id="modalGanador" class="modal">
-            <div class="modal-content">
+    const resultadoHTML = `
+        <div id="ventanaResultado" class="resultado">
+            <div class="resultado-content">
                 <h2>¡Enhorabuena, ${nombre}!</h2>
                 <p>Tiempo: ${tiempo}</p>
                 <p>Intentos: ${intentos}</p>
-                <button id="cerrarModal">Cerrar</button>
+                <button id="cerrarResultado">Cerrar</button>
             </div>
         </div>
     `;
 
-    // Insertar el modal en el cuerpo del documento
-    document.body.insertAdjacentHTML("beforeend", modalHTML);
+    // Insertar el resultado en el cuerpo del documento
+    document.body.insertAdjacentHTML("beforeend", resultadoHTML);
 
-    // Mostrar el modal
-    const modal = document.getElementById("modalGanador");
-    modal.style.display = "block";
+    // Mostrar el resultado
+    const resultado = document.getElementById("ventanaResultado");
+    resultado.style.display = "block";
 
-    // Cerrar el modal al hacer clic en el botón
-    document.getElementById("cerrarModal").addEventListener("click", () => {
-        console.log("Cerrando modal"); // Verificar si el evento se ejecuta
+    // Cerrar el resultado al hacer clic en el botón
+    document.getElementById("cerrarResultado").addEventListener("click", () => {
 
-        modal.style.display = "none";
-        modal.remove(); // Eliminar el modal del DOM
+        resultado.style.display = "none";
+        resultado.remove();
+        location.reload();
     });
 }

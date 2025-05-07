@@ -8,6 +8,9 @@
 </head>
 <body>
     <div id="inicio">
+        <div id="historial">
+            <!-- Aquí se mostrará el historial de partidas -->
+        </div>
         <h1>Juego de memoria</h1>
         <table id="formulario">
             <tr>
@@ -51,19 +54,21 @@
                 <td>
                     <select id="tema">
                         <option selected default disabled>Seleccione un tema</option>
-                        <option>Deportes</option>
-                        <option>Animales</option>
-                        <option>Banderas</option>
-                        <option>Informática</option>
-                        <option>Aleatorio</option>
+                        <option value="deportes">Deportes</option>
+                        <option value="animales">Animales</option>
+                        <option value="banderas">Banderas</option>
+                        <option value="informática">Informática</option>
+                        <option value="aleatorio">Aleatorio</option>
                     </select>
                 </td>
             </tr>
-            <tr>                <td>
-                <form id="formCheckboxes">
-                    <label><input type="checkbox" name="opciones" value="opcion1">Temporizador</label><br>
-                  </form> 
-            </td>
+            <tr>
+                <td>
+                    <form id="formCheckboxes">
+                        <label><input type="checkbox" name="opciones" value="opcion1">Cronómetro</label>
+                        <br>
+                    </form> 
+                </td>
             </tr>
             <tr>
                 <td colspan="2">
