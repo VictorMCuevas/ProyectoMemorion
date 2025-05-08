@@ -24,6 +24,17 @@ window.addEventListener("DOMContentLoaded", () => {
     const menuPedirMedidas = document.getElementById("menuPedirMedidas");
     const dimensiones = document.getElementById("dimensiones");
 
+    
+
+    const menuJuego = document.getElementById("modoJuego");
+    
+    menuJuego.addEventListener('change', () => {
+        const img = "./imagenes/easterEgg.jpg";
+        if (menuJuego.value == "flash") {
+            window.open("./pantalla.html");
+        }
+        });
+
     dimensiones.addEventListener('click', () => {
         if (dimensiones.value == "7") {
             menuPedirMedidas.style.display = "block";

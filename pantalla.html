@@ -3,47 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/style.css">
     <title>Document</title>
+    <style>
+        img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
-<body id="tablero">
-    <div class="cronometro" style="text-align: left">
-        <table>
-            <tr>
-                <th id="displayCrono" >Cronometro:00:00:00</th>
-                <br>
-                <th  id="displaycont" style=" text-align: left;">contador: 0</th>
-            </tr>
-        </table>
-    </div>
+<body>
+    <img src="./imagenes/easterEgg.gif" alt="">
 
-    <table id="juego">
-        <tr>
-            <br>
-            <th><img src="./imagenes/animales/1.png" alt="" height="200px" width="200px"></th>
-            <br>
-            <td><img src="./imagenes/animales/10.jpg" alt=""height="200px" width="200px"></td>
-        </tr>
-        <tr>
-            <br>
-            <td><img src="./imagenes/animales/11.jpg" alt=""height="200px" width="200px"></td>
-            <br>
-            <td><img src="./imagenes/animales/12.jpg" alt=""height="200px" width="200px"></td>
-        </tr>
-    </table>
-    <script >
-        // Leer parámetros de la URL
-        const params = new URLSearchParams(window.location.search);
-        const nombre = params.get("nombre");
-        const dimensiones = params.get("dimensiones");
-        const tema = params.get("tema");
-
-        // Mostrar los datos en la página
-        document.getElementById("tablero").innerHTML = `
-            <h2>¡Suerte ${nombre}!</h2>
-            <p>Dimensiones: ${dimensiones}</p>
-            <p>Tema: ${tema}</p>
-        `;
+    <script>
+        setTimeout(() => {
+            window.close();
+        }, 2000);
     </script>
 </body>
 </html>
