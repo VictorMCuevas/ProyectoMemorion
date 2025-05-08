@@ -212,7 +212,6 @@ window.addEventListener("DOMContentLoaded", () => {
 });
               
 
-
 function voltearCarta(carta) {
 
     if (bloquear || carta.classList.contains("flipped")) return;

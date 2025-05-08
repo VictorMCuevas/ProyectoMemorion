@@ -228,13 +228,16 @@ table {
   background-color: #45a049;
 }
 
-
-
+#listaResultados {
+  font-family:'Times New Roman', Times, serif;
+  font-style: italic;
+}
 
 
 #historial {
   margin-top: 20px;
   padding: 10px;
+  padding-right: 300px;
   border-radius: 5px;
   background-color: 0,0,0,0.5;
   cursor: pointer;
