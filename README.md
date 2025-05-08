@@ -118,3 +118,28 @@ Proyecto Memorión en JavaScript para practias 1ºDAW
 
  **Ideas de mejora futura:**
  - [Agregar todas las funcionalidades]
+
+
+ ## sesion 5
+
+**Resumen:**
+[Al terminar la partida, ahora se para el tiempo, se guardan los datos de nombre, tiempo e intentos y se muestran en una ventana emergente. En ella hay un botón para reiniciar el juego, que carga el formulario de nuevo. Hemos añadido botones de historial de partidas jugadas, filtradas por tiempo.]
+
+**Dificultades encontradas**
+- [Por el momento, no hemos podido filtrar el historial por dificultad, ni por intentos.]
+
+**Soluciones aplicadas:**
+- [Invesgacion en paginas web]
+- [Invesgacion en inteligencias artificiales]
+
+**Fuentes consultadas**
+- [https://chatgpt.com/]
+- [https://es.stackoverflow.com]
+- [https://www.w3schools.com/]
+- [https://www.freecodecamp.org/espanol/news/eventos-de-tiempo-en-javascript-settimeout-y-setinterval/]
+ 
+ **Decisiones tecnicas**
+ - [Hemos decidido crear un menú en la primera página para poder mostrar los resultados de partidas anteriores.]
+
+ **Ideas de mejora futura:**
+ - [Crear funcionalidad en los nuevos botones incorporados.]
