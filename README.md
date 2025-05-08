@@ -143,3 +143,28 @@ Proyecto Memorión en JavaScript para practias 1ºDAW
 
  **Ideas de mejora futura:**
  - [Crear funcionalidad en los nuevos botones incorporados.]
+
+
+## sesion 6
+
+**Resumen:**
+[Hemos añadido el huevo de pascua y algunas mejoras en la visualizacion del contenido]
+
+**Dificultades encontradas**
+- [No hemos podido parar el cronometro]
+
+**Soluciones aplicadas:**
+- [Invesgacion en paginas web]
+- [Invesgacion en inteligencias artificiales]
+
+**Fuentes consultadas**
+- [https://chatgpt.com/]
+- [https://es.stackoverflow.com]
+- [https://www.w3schools.com/]
+- [https://www.freecodecamp.org/espanol/news/eventos-de-tiempo-en-javascript-settimeout-y-setinterval/]
+ 
+ **Decisiones tecnicas**
+ - [Hemos tomado algunas deciciones respecto a la decoracion de la pagina]
+
+ **Ideas de mejora futura:**
+ - [Aprender más javascript]

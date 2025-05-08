@@ -3,47 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/style.css">
     <title>Document</title>
+    <style>
+        img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: auto;
+            display: none; /* Ocultar la imagen inicialmente */
+        }
+        button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        body {
+            background-image: url('./imagenes/fondo.jpg'); /* Asegúrate de tener este archivo de imagen */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+        }
+    </style>
+    
 </head>
-<body id="tablero">
-    <div class="cronometro" style="text-align: left">
-        <table>
-            <tr>
-                <th id="displayCrono" >Cronometro:00:00:00</th>
-                <br>
-                <th  id="displaycont" style=" text-align: left;">contador: 0</th>
-            </tr>
-        </table>
-    </div>
+<body>
+    <button id="showButton">!Comenzar modo Flash!</button>
+    <img id="easterEggImage" src="./imagenes/easterEgg.gif" alt="imagen de Easter Egg"> <!-- Asegúrate de tener este archivo de imagen -->
+    <audio id="easterEggAudio" src="./audio/easterEgg.mp3"></audio> <!-- Asegúrate de tener este archivo de audio -->
 
-    <table id="juego">
-        <tr>
-            <br>
-            <th><img src="./imagenes/animales/1.png" alt="" height="200px" width="200px"></th>
-            <br>
-            <td><img src="./imagenes/animales/10.jpg" alt=""height="200px" width="200px"></td>
-        </tr>
-        <tr>
-            <br>
-            <td><img src="./imagenes/animales/11.jpg" alt=""height="200px" width="200px"></td>
-            <br>
-            <td><img src="./imagenes/animales/12.jpg" alt=""height="200px" width="200px"></td>
-        </tr>
-    </table>
-    <script >
-        // Leer parámetros de la URL
-        const params = new URLSearchParams(window.location.search);
-        const nombre = params.get("nombre");
-        const dimensiones = params.get("dimensiones");
-        const tema = params.get("tema");
+    <script>
+        const button = document.getElementById('showButton');
+        const image = document.getElementById('easterEggImage');
+        const audio = document.getElementById('easterEggAudio');
 
-        // Mostrar los datos en la página
-        document.getElementById("tablero").innerHTML = `
-            <h2>¡Suerte ${nombre}!</h2>
-            <p>Dimensiones: ${dimensiones}</p>
-            <p>Tema: ${tema}</p>
-        `;
+        button.addEventListener('click', () => {
+            image.style.display = 'block'; // Mostrar la imagen
+            audio.play(); // Reproducir el audio
+            button.style.display = 'none'; // Ocultar el botón
+            setTimeout(() =>{
+            window.close(); 
+            }, 4000);
+
+        });
+
+        
     </script>
 </body>
 </html>

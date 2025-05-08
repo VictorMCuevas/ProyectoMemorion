@@ -24,6 +24,15 @@ window.addEventListener("DOMContentLoaded", () => {
     const menuPedirMedidas = document.getElementById("menuPedirMedidas");
     const dimensiones = document.getElementById("dimensiones");
 
+    const menuJuego = document.getElementById("modoJuego");
+    
+    menuJuego.addEventListener('change', () => {
+        const img = "./imagenes/easterEgg.jpg";
+        if (menuJuego.value == "flash") {
+            window.open("./pantalla.html");
+        }
+        });
+
     dimensiones.addEventListener('click', () => {
         if (dimensiones.value == "7") {
             menuPedirMedidas.style.display = "block";
@@ -104,7 +113,6 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     function crearTabla(alto, ancho) {
         const reverso = "./imagenes/dorso.jpg"; // Usa la imagen oculta
         let tablaHTML = "<table>";
@@ -161,9 +169,37 @@ window.addEventListener("DOMContentLoaded", () => {
         const btnFiltroIntentos = document.getElementById("filtroIntentos");
 
         if (contenidoHistorial.style.display === "none") {
-            contenidoHistorial.style.display = "block"; // Mostrar el contenido
+            contenidoHistorial.style.display = "block"; // Mostrar botones
+
+            document.getElementById("porTiempo").addEventListener("click", () => {
+                const listaResultados = document.getElementById("listaResultados");
+                if (listaResultados.style.display === "none") {
+                    listaResultados.style.display = "block"; // Mostrar botones
+                } else {
+                    listaResultados.style.display = "none"; // Ocultar botones
+                }
+            });
+
+
+            document.getElementById("porIntentos").addEventListener("click", () => {
+                const listaResultados = document.getElementById("listaResultados");
+                if (listaResultados.style.display === "none") {
+                    listaResultados.style.display = "block"; // Mostrar botones
+                } else {
+                    listaResultados.style.display = "none"; // Ocultar botones
+                }
+            });
+
+            document.getElementById("porIntentos").addEventListener("click", () => {
+                mostrarResultados("intentos"); // Mostrar los resultados ordenados por intentos
+            });
+
+            document.getElementById("porTiempo").addEventListener("click", () => {
+                mostrarResultados("tiempo"); // Mostrar los resultados ordenados por tiempo
+            });
+
         } else {
-            contenidoHistorial.style.display = "none"; // Ocultar el contenido
+            contenidoHistorial.style.display = "none"; // Ocultar botones
         }
         btnFiltroIntentos.addEventListener('click', () => {
             filtro = "intentos";
@@ -173,8 +209,8 @@ window.addEventListener("DOMContentLoaded", () => {
             filtro = "tiempo";
         });
     });
-              
 });
+              
 
 function voltearCarta(carta) {
 
@@ -213,7 +249,7 @@ function voltearCarta(carta) {
                     let resultados = JSON.parse(localStorage.getItem("resultados")) || [];
 
                     // Agregar el nuevo resultado
-                    resultados.push({ nombre, tiempo, intentos });
+                    resultados.push({ nombre, tiempo, intentos, alto, ancho });
 
                     // Guardar los resultados actualizados en localStorage
                     localStorage.setItem("resultados", JSON.stringify(resultados));
@@ -255,6 +291,7 @@ function mostrarVentanaEmergente(nombre, tiempo, intentos) {
                 <h2>¡Enhorabuena, ${nombre}!</h2>
                 <p>Tiempo: ${tiempo}</p>
                 <p>Intentos: ${intentos}</p>
+                <p>Dificultad: ${alto}x${ancho}</p>
                 <button id="cerrarResultado">Cerrar</button>
             </div>
         </div>
@@ -275,15 +312,16 @@ function mostrarVentanaEmergente(nombre, tiempo, intentos) {
     });
 }
 
-function obtenerResultadosOrdenados() {
+function mostrarResultados(criterio = "tiempo") {
     let resultados = JSON.parse(localStorage.getItem("resultados")) || [];
-    // Ordenar por tiempo (de menor a mayor)
-    resultados.sort((a, b) => a.tiempo - b.tiempo);
-    return resultados;
-}
+    
+    // Ordenar los resultados según el criterio
+    if (criterio === "intentos") {
+        resultados.sort((a, b) => a.intentos - b.intentos); // Ordenar por intentos
+    } else {
+        resultados.sort((a, b) => a.tiempo - b.tiempo); // Ordenar por tiempo
+    }
 
-function mostrarResultados() {
-    const resultados = obtenerResultadosOrdenados();
     const listaResultados = document.getElementById("listaResultados");
 
     if (listaResultados) {
@@ -291,7 +329,7 @@ function mostrarResultados() {
 
         resultados.forEach((resultado, index) => {
             const li = document.createElement("li");
-            li.textContent = `${index + 1}. ${resultado.nombre} - Tiempo: ${resultado.tiempo}s - Intentos: ${resultado.intentos}`;
+            li.textContent = `${index + 1}. ${resultado.nombre} - Tiempo: ${resultado.tiempo}s - Intentos: ${resultado.intentos} - Dificultad: ${resultado.alto}x${resultado.ancho}`;
             listaResultados.appendChild(li);
         });
     }
