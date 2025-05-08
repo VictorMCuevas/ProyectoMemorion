@@ -71,6 +71,7 @@ td {
   background: linear-gradient(to bottom, #22382b, #426c54); /* Degradado de blanco a gris claro */
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.952);
 }
+
 .contador{
   text-align: center;
  color: aliceblue;

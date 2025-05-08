@@ -25,7 +25,6 @@ window.addEventListener("DOMContentLoaded", () => {
     const dimensiones = document.getElementById("dimensiones");
 
     
-
     const menuJuego = document.getElementById("modoJuego");
     
     menuJuego.addEventListener('change', () => {
