@@ -6,28 +6,46 @@
     <title>Document</title>
     <style>
         img {
-            position:absolute;
+            position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 100%;
             height: auto;
+            display: none; /* Ocultar la imagen inicialmente */
+        }
+        button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <img src="./imagenes/easterEgg.gif" alt="">
-    <iframe 
-    src="https://www.youtube.com/embed/7S-eD93VCB4?autoplay=1&si=8TFMSEo2dMB31DgI" 
-    title="YouTube video player" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-    referrerpolicy="strict-origin-when-cross-origin" 
-    allowfullscreen>
-</iframe>    <script>
-        setTimeout(() => {
-            window.close();
-        }, 5000);
+    <button id="showButton">!Comenzar modo Flash!</button>
+    <img id="easterEggImage" src="./imagenes/easterEgg.gif" alt="">
+    <audio id="easterEggAudio" src="./audio/easterEgg.mp3"></audio> <!-- Asegúrate de tener este archivo de audio -->
+
+    <script>
+        const button = document.getElementById('showButton');
+        const image = document.getElementById('easterEggImage');
+        const audio = document.getElementById('easterEggAudio');
+
+        button.addEventListener('click', () => {
+            image.style.display = 'block'; // Mostrar la imagen
+            audio.play(); // Reproducir el audio
+            button.style.display = 'none'; // Ocultar el botón
+            setTimeout(() =>{
+            window.close(); 
+            }, 4000);
+
+        });
+
+        
     </script>
 </body>
 </html>
