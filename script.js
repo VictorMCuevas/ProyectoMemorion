@@ -127,7 +127,6 @@ window.addEventListener("DOMContentLoaded", () => {
         fotos.sort(() => 0.5 - Math.random());
     }
 
-
     function crearTabla(alto, ancho) {
         const reverso = "./imagenes/dorso.jpg"; // Usa la imagen oculta
         let tablaHTML = "<table>";
