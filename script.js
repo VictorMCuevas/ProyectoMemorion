@@ -26,13 +26,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const menuJuego = document.getElementById("modoJuego");
     
-    menuJuego.addEventListener('change', () => {
-        const img = "./imagenes/easterEgg.jpg";
-        if (menuJuego.value == "flash") {
-            window.open("./pantalla.html");
-        }
-        });
-
+    
     dimensiones.addEventListener('click', () => {
         if (dimensiones.value == "7") {
             menuPedirMedidas.style.display = "block";
@@ -47,7 +41,11 @@ window.addEventListener("DOMContentLoaded", () => {
         document.getElementById("nombrejugador").innerText = "¡Buena Suerte " + nombre + "!";
         const dimensionesValor = document.getElementById("dimensiones").value;
         let tema = document.getElementById("tema").value;
-
+;
+            if (menuJuego.value == "flash") {
+                window.open("./pantalla.html");
+            };
+    
         if (nombre === "" || dimensionesValor === "" || tema === "") {
             alert("Por favor, rellene los campos");
             return;
