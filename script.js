@@ -45,11 +45,13 @@ window.addEventListener("DOMContentLoaded", () => {
         const dimensionesValor = document.getElementById("dimensiones").value;
         let tema = document.getElementById("tema").value;
 
+
     
         if (nombre === "" || dimensionesValor === "" || tema === "") {
             alert("Por favor, rellene los campos");
             return;
         } else {
+
             if (dimensionesValor === "4") {
                 alto = 4;
                 ancho = 4;
@@ -93,7 +95,9 @@ window.addEventListener("DOMContentLoaded", () => {
             setInterval(iniciarCronometro, 1000);
             }
 
-            
+            const iframe = document.getElementById('videoFrame');
+            iframe.src = "https://www.youtube.com/embed/JNl1_hRwpXE?autoplay=1&si=NM1VJyAeVA-I4Z8G";
+       
         }
     });
 
