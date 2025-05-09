@@ -19,6 +19,9 @@ window.addEventListener("DOMContentLoaded", () => {
     const tablero = document.getElementById("tablero");
     tablero.classList.add("animar-tablero");
 
+    const image = document.getElementById('easterEggImage');
+    const audio = document.getElementById('easterEggAudio');
+
     const btnInsertar = document.getElementById("iniciar");
     const inicio = document.getElementById("inicio");
     const menuPedirMedidas = document.getElementById("menuPedirMedidas");
@@ -42,9 +45,9 @@ window.addEventListener("DOMContentLoaded", () => {
         const dimensionesValor = document.getElementById("dimensiones").value;
         let tema = document.getElementById("tema").value;
 ;
-            if (menuJuego.value == "flash") {
-                window.open("./pantalla.html");
-            };
+           // if (menuJuego.value == "flash") {
+            //    window.open("./pantalla.html");
+            //};
     
         if (nombre === "" || dimensionesValor === "" || tema === "") {
             alert("Por favor, rellene los campos");
@@ -74,16 +77,33 @@ window.addEventListener("DOMContentLoaded", () => {
             }
             const rutaImagenes = "./imagenes/" + tema + "/";
             guardarImg(rutaImagenes, numFotos);
-            crearTabla(alto, ancho);
+            if(modoJuego.value === "normal"){
+                crearTabla(alto, ancho);
+            }else if(modoJuego.value === "flash"){
+                
+                setTimeout(() => {
+                    crearTabla(alto, ancho);
+                }, 5000);
+                
+            }
+
+            
 
             inicio.style.display = "none";
             tablero.style.display = "block";
             iniciarCronometro();
             if (modoJuego.value === "flash") {
+                setTimeout(() =>{
+                    audio.currentTime = 0; // Reiniciar el audio al inicio
+                    audio.play(); // Reproducir el audio
+                    image.style.display = 'block'; // Mostrar la imagen
+                    
+                    button.style.display = 'none'; // Ocultar el botón
+                    }, 1000);
             setTimeout(() => {
                 iniciarCronometro();
                 setInterval(iniciarCronometro, 1000);
-            }, 5000);
+            }, 11000);
             
             }else{
                 iniciarCronometro();
