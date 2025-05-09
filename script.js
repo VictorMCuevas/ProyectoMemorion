@@ -44,10 +44,7 @@ window.addEventListener("DOMContentLoaded", () => {
         document.getElementById("nombrejugador").innerText = "¡Buena Suerte " + nombre + "!";
         const dimensionesValor = document.getElementById("dimensiones").value;
         let tema = document.getElementById("tema").value;
-;
-           // if (menuJuego.value == "flash") {
-            //    window.open("./pantalla.html");
-            //};
+
     
         if (nombre === "" || dimensionesValor === "" || tema === "") {
             alert("Por favor, rellene los campos");
@@ -80,30 +77,16 @@ window.addEventListener("DOMContentLoaded", () => {
             if(modoJuego.value === "normal"){
                 crearTabla(alto, ancho);
             }else if(modoJuego.value === "flash"){
-                
-                setTimeout(() => {
-                    crearTabla(alto, ancho);
-                }, 5000);
-                
+                crearTabla(alto, ancho);
             }
-
-            
-
             inicio.style.display = "none";
             tablero.style.display = "block";
             iniciarCronometro();
             if (modoJuego.value === "flash") {
-                setTimeout(() =>{
-                    audio.currentTime = 0; // Reiniciar el audio al inicio
-                    audio.play(); // Reproducir el audio
-                    image.style.display = 'block'; // Mostrar la imagen
-                    
-                    button.style.display = 'none'; // Ocultar el botón
-                    }, 1000);
             setTimeout(() => {
                 iniciarCronometro();
                 setInterval(iniciarCronometro, 1000);
-            }, 11000);
+            }, 5000);
             
             }else{
                 iniciarCronometro();
@@ -258,7 +241,11 @@ function voltearCarta(carta) {
             primeraCarta = carta;
             return; // No voltear la primera carta aún
         } else {
+            // Evitar que el usuario haga doble clic en la misma carta
+            if (primeraCarta === carta) return;
+
             segundaCarta = carta;
+            bloquear = true;
 
             // Verificar si las cartas coinciden
             const id1 = primeraCarta.getAttribute("data-id");
@@ -315,6 +302,9 @@ function voltearCarta(carta) {
     if (!primeraCarta) {
         primeraCarta = carta;
     } else {
+        // Evitar que el usuario haga doble clic en la misma carta
+        if (primeraCarta === carta) return;
+
         segundaCarta = carta;
         bloquear = true;
 

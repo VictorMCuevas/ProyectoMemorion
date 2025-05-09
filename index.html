@@ -12,14 +12,9 @@
             <button id="botonHistorial">Historial de partidas</button>
             
             <div id="contenidoHistorial" style="display: none;">
-                <button id="porTiempo">Por tiempo</button>
-                <button id="porIntentos">Por Intentos</button>
+                <button id="porTiempo">Por tiempo </button>
+                <button id="porIntentos">Por Intentos </button>
                 <ul id="listaResultados" style="display: none;"></ul>
-                <button id="filtarTiempo" value="tiempo">Filtrar por tiempo</button>
-                <div id="porTiempo"></div>
-                <button id="filtarIntentos" value="intentos">Filtrar por intentos</button>
-                <div id="porIntentos"></div>
-                <ul id="listaResultados"></ul>
             </div>
         </div>
         <h1>MEMORAMA</h1>
@@ -35,8 +30,8 @@
                 <td>
                     <select id="modoJuego">
                         <option selected default disabled>Seleccione un tablero</option>
-                        <option>Normal</option>
-                        <option>Flash</option>
+                        <option value="normal">Normal</option>
+                        <option value="flash">Flash</option>
                     </select>
                 </td>
             </tr>
@@ -45,7 +40,7 @@
                 <th>Dimensiones: </th>
                 <td>
                     <select id="dimensiones">
-                        <option selected default disabled>Seleccione un tablero</option>
+                        <option selected default disabled>Seleccione un tablero </option>
                         <option value="4">Fácil (4x4)</option>
                         <option value="5">Medio (5x4)</option>
                         <option value="6">Difícil (6x6)</option>
@@ -100,10 +95,7 @@
                 </tr>
             </table>
         </div>
-        <div id="juego">
-            <img id="easterEggImage" src="./imagenes/easterEgg.gif" alt="imagen de Easter Egg"> <!-- Asegúrate de tener este archivo de imagen -->
-            <audio id="easterEggAudio" src="./audio/easterEgg.mp3"></audio> <!-- Asegúrate de tener este archivo de audio -->
-        </div>
+        <div id="juego"></div>
         
     </div>
     
