@@ -123,9 +123,11 @@ window.addEventListener("DOMContentLoaded", () => {
             for (let j = 0; j < ancho; j++) {
                 if (cont < fotos.length) {
                     const imgSrc = fotos[cont];
+                    // Añadir la clase "flipped" solo si el modo de juego es "flash"
+                    const flippedClass = menuJuego.value === "flash" ? "flipped" : "";
                     tablaHTML += `
                     <td>
-                        <div class="card flipped" data-id="${imgSrc}" onclick="voltearCarta(this)">
+                        <div class="card ${flippedClass}" data-id="${imgSrc}" onclick="voltearCarta(this)">
                             <div class="card-inner">
                                 <div class="card-front">
                                     <img src="${reverso}" alt="Reverso">
@@ -147,8 +149,8 @@ window.addEventListener("DOMContentLoaded", () => {
         tablaHTML += "</table>";
         document.getElementById("juego").innerHTML = tablaHTML;
 
-        // Ocultar las cartas después de 5 segundos
-        if (modoJuego.value === "flash") {
+        // Si el modo de juego es "flash", desvelar las cartas durante 5 segundos
+        if (menuJuego.value === "flash") {
             setTimeout(() => {
                 const cartas = document.querySelectorAll(".card");
                 cartas.forEach(carta => carta.classList.remove("flipped"));
@@ -220,72 +222,70 @@ window.addEventListener("DOMContentLoaded", () => {
               
 
 function voltearCarta(carta) {
-
     if (bloquear || carta.classList.contains("flipped")) return;
 
-    // volteamos la carta
+    // Volteamos la carta
     carta.classList.add("flipped");
 
-    // si es la primera carta que hemos volteado
+    // Si es la primera carta que hemos volteado
     if (!primeraCarta) {
         primeraCarta = carta;
-
     } else {
-        // es la segunda carta
+        // Es la segunda carta
         segundaCarta = carta;
         bloquear = true;
 
-        // obtenemos el ID de las dos cartas
+        // Obtenemos el ID de las dos cartas
         const id1 = primeraCarta.getAttribute("data-id");
         const id2 = segundaCarta.getAttribute("data-id");
 
-        // verificamos si coinciden
+        // Verificamos si coinciden
         if (id1 === id2) {
-            // coinciden se quedan boca arriba
+            // Coinciden, se quedan boca arriba
             primeraCarta = null;
             segundaCarta = null;
             bloquear = false;
-            aciertos++
+            aciertos++;
+
+            // Verificar si se completaron todas las parejas
             setTimeout(() => {
                 if (aciertos === parejasCreadas) {
-                    const nombre = document.getElementById("nombre").value; // Obtener el nombre del jugador
-                    const tiempo = parseInt(segundos); // Formato del tiempo como número
+                    const nombre = document.getElementById("nombre").value;
+                    const tiempo = parseInt(segundos);
                     const intentos = contador;
 
-                    // Obtener resultados previos de localStorage
+                    // Guardar el resultado en localStorage
                     let resultados = JSON.parse(localStorage.getItem("resultados")) || [];
-
-                    // Agregar el nuevo resultado
                     resultados.push({ nombre, tiempo, intentos, alto, ancho });
-
-                    // Guardar los resultados actualizados en localStorage
                     localStorage.setItem("resultados", JSON.stringify(resultados));
 
                     // Mostrar ventana emergente
                     mostrarVentanaEmergente(nombre, tiempo, intentos);
                 }
             }, 500);
-
         } else {
-            // si no coinciden se voltean de nuevo
-            setTimeout(() => {
-                primeraCarta.classList.remove("flipped");
-                segundaCarta.classList.remove("flipped");
-                primeraCarta = null;
-                segundaCarta = null;
-                bloquear = false;
-
-                contador++;
-                const displayCont = document.getElementById("contador");
-                if (displayCont) {
-                    displayCont.innerText = "contador: " + contador;
-                }
-
-            }, 1000); // se voltean después de 1 segundo
+            // No coinciden
+            if (modoJuego.value === "flash") {
+                // En modo "flash", las cartas no se desvelan
+                setTimeout(() => {
+                    primeraCarta.classList.remove("flipped");
+                    segundaCarta.classList.remove("flipped");
+                    primeraCarta = null;
+                    segundaCarta = null;
+                    bloquear = false;
+                }, 1000);
+            } else {
+                // En modo "normal", las cartas se voltean de nuevo
+                setTimeout(() => {
+                    primeraCarta.classList.remove("flipped");
+                    segundaCarta.classList.remove("flipped");
+                    primeraCarta = null;
+                    segundaCarta = null;
+                    bloquear = false;
+                }, 1000);
+            }
         }
-
     }
-
 }
 
 // Función para mostrar la ventana emergente
@@ -351,7 +351,8 @@ function mostrarResultados(criterio = "tiempo") {
                 <span class="resultado-tiempo">Tiempo: ${resultado.tiempo}s</span>
                 <span class="resultado-intentos">Intentos: ${resultado.intentos}</span>
                 <span class="resultado-dificultad">Dificultad: ${resultado.alto}x${resultado.ancho}</span>
-            </div>`;
+            </div>
+        `;
             listaResultados.appendChild(li);
         });
     }
