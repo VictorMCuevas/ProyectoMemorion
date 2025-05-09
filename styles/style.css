@@ -1,8 +1,10 @@
 h1 {
   text-align: center;
-  padding: 20px 0;
-  color: #ffffff;
+  padding-left: 20px;
+  color: goldenrod;
   text-shadow: 3px 3px 1px black;
+  font-family: fantasy;
+  font-size: 70px;
 }
 
 body {

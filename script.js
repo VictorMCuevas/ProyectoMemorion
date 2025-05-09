@@ -125,7 +125,7 @@ window.addEventListener("DOMContentLoaded", () => {
                     const imgSrc = fotos[cont];
                     tablaHTML += `
                     <td>
-                        <div class="card" data-id="${imgSrc}" onclick="voltearCarta(this)">
+                        <div class="card flipped" data-id="${imgSrc}" onclick="voltearCarta(this)">
                             <div class="card-inner">
                                 <div class="card-front">
                                     <img src="${reverso}" alt="Reverso">
@@ -137,18 +137,25 @@ window.addEventListener("DOMContentLoaded", () => {
                         </div>
                     </td>`;
                     cont++;
-                    
                 } else {
                     tablaHTML += "<td></td>";
                 }
             }
-            tablaHTML += "</tr>"; 
-           
+            tablaHTML += "</tr>";
         }
 
         tablaHTML += "</table>";
         document.getElementById("juego").innerHTML = tablaHTML;
+
+        // Ocultar las cartas después de 5 segundos
+        if (modoJuego.value === "flash") {
+            setTimeout(() => {
+                const cartas = document.querySelectorAll(".card");
+                cartas.forEach(carta => carta.classList.remove("flipped"));
+            }, 5000);
+        }
     }
+
     // Seleccionar el checkbox y el contenedor
     const checkboxTemporizador = document.querySelector('input[name="opciones"][value="opcion1"]');
     const contenedor = document.getElementById("contenedor");
