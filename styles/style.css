@@ -26,7 +26,7 @@ td {
 }
 
 #iniciar {
-  margin-left: 50%;
+  margin-left: 40%;
 }
 #menuPedirMedidas {
   display: none;
@@ -82,7 +82,15 @@ td {
   width: 100px;
   height: 100px;
   perspective: 1000px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Suaviza las transiciones */
 }
+
+.card:hover {
+  transform: scale(1.1); /* Aumenta ligeramente el tamaño */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Añade una sombra */
+  cursor: pointer; /* Cambia el cursor a un puntero */
+}
+
 
 .card-inner {
   position: relative;
@@ -229,9 +237,27 @@ table {
 }
 
 #listaResultados {
-  font-family:'Times New Roman', Times, serif;
-  font-style: italic;
+  font-family: 'Times New Roman', Times, serif;
+  color: white;
+  list-style-type: none; /* Eliminar los puntos de la lista */
+  padding: 0;
 }
+
+#listaResultados li {
+  padding: 10px; /* Espaciado interno de cada resultado */
+}
+
+.resultado-item {
+  display: flex;
+  flex-wrap: wrap; /* Permitir que los elementos se ajusten si no caben en una línea */
+  gap: 20px; /* Espaciado entre los elementos */
+}
+
+.resultado-nombre,.resultado-tiempo,.resultado-intentos,.resultado-dificultad {
+  margin-right: 20px; /* Espaciado entre los elementos */
+  font-size: 16px; /* Tamaño de fuente */
+}
+
 
 
 #historial {
