@@ -285,6 +285,9 @@ function voltearCarta(carta) {
 function mostrarVentanaEmergente(nombre, tiempo, intentos) {
     console.log("Mostrando ventana emergente"); 
 
+    const puntuacionTexto = `¡He completado el juego en ${tiempo} segundos con ${intentos} intentos en una dificultad de ${alto}x${ancho}! ¿Puedes superarme?`;
+    const urlCompartir = `https://www.facebook.com/sharer/sharer.php?u=https://tusitio.com&quote=${encodeURIComponent(puntuacionTexto)}`;
+
     const resultadoHTML = `
         <div id="ventanaResultado" class="resultado">
             <div class="resultado-content">
@@ -292,6 +295,7 @@ function mostrarVentanaEmergente(nombre, tiempo, intentos) {
                 <p>Tiempo: ${tiempo}</p>
                 <p>Intentos: ${intentos}</p>
                 <p>Dificultad: ${alto}x${ancho}</p>
+                <button id="compartirFacebook">Compartir en Facebook</button>
                 <button id="cerrarResultado">Cerrar</button>
             </div>
         </div>
@@ -301,6 +305,11 @@ function mostrarVentanaEmergente(nombre, tiempo, intentos) {
 
     const resultado = document.getElementById("ventanaResultado");
     resultado.style.display = "block";
+
+    // Evento para compartir en Facebook
+    document.getElementById("compartirFacebook").addEventListener("click", () => {
+        window.open(urlCompartir, '_blank');
+    });
 
     // Cerrar el resultado al hacer clic en el botón
     document.getElementById("cerrarResultado").addEventListener("click", () => {
