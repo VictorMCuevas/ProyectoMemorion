@@ -9,7 +9,7 @@ var parejasCreadas = 0;
 let ancho;
 let alto;
 var temasDisponibles = ["deportes", "animales", "banderas", "informática"];
-var segundos = 0;
+var segundos = -1;
 var partidasnNormal = [];
 var partidasFlash= [];
 var filtro;
@@ -19,6 +19,9 @@ window.addEventListener("DOMContentLoaded", () => {
     const tablero = document.getElementById("tablero");
     tablero.classList.add("animar-tablero");
 
+    const image = document.getElementById('easterEggImage');
+    const audio = document.getElementById('easterEggAudio');
+
     const btnInsertar = document.getElementById("iniciar");
     const inicio = document.getElementById("inicio");
     const menuPedirMedidas = document.getElementById("menuPedirMedidas");
@@ -26,13 +29,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const menuJuego = document.getElementById("modoJuego");
     
-    menuJuego.addEventListener('change', () => {
-        const img = "./imagenes/easterEgg.jpg";
-        if (menuJuego.value == "flash") {
-            window.open("./pantalla.html");
-        }
-        });
-
+    
     dimensiones.addEventListener('click', () => {
         if (dimensiones.value == "7") {
             menuPedirMedidas.style.display = "block";
@@ -48,10 +45,13 @@ window.addEventListener("DOMContentLoaded", () => {
         const dimensionesValor = document.getElementById("dimensiones").value;
         let tema = document.getElementById("tema").value;
 
+
+    
         if (nombre === "" || dimensionesValor === "" || tema === "") {
             alert("Por favor, rellene los campos");
             return;
         } else {
+
             if (dimensionesValor === "4") {
                 alto = 4;
                 ancho = 4;
@@ -76,13 +76,28 @@ window.addEventListener("DOMContentLoaded", () => {
             }
             const rutaImagenes = "./imagenes/" + tema + "/";
             guardarImg(rutaImagenes, numFotos);
-            crearTabla(alto, ancho);
-
+            if(modoJuego.value === "normal"){
+                crearTabla(alto, ancho);
+            }else if(modoJuego.value === "flash"){
+                crearTabla(alto, ancho);
+            }
             inicio.style.display = "none";
             tablero.style.display = "block";
-
             iniciarCronometro();
+            if (modoJuego.value === "flash") {
+            setTimeout(() => {
+                iniciarCronometro();
+                setInterval(iniciarCronometro, 1000);
+            }, 5000);
+            
+            }else{
+                iniciarCronometro();
             setInterval(iniciarCronometro, 1000);
+            }
+
+            const iframe = document.getElementById('videoFrame');
+            iframe.src = "https://www.youtube.com/embed/JNl1_hRwpXE?autoplay=1&si=NM1VJyAeVA-I4Z8G";
+       
         }
     });
 
@@ -112,7 +127,6 @@ window.addEventListener("DOMContentLoaded", () => {
         fotos.sort(() => 0.5 - Math.random());
     }
 
-
     function crearTabla(alto, ancho) {
         const reverso = "./imagenes/dorso.jpg"; // Usa la imagen oculta
         let tablaHTML = "<table>";
@@ -123,9 +137,11 @@ window.addEventListener("DOMContentLoaded", () => {
             for (let j = 0; j < ancho; j++) {
                 if (cont < fotos.length) {
                     const imgSrc = fotos[cont];
+                    // Añadir la clase "flipped" solo si el modo de juego es "flash"
+                    const flippedClass = menuJuego.value === "flash" ? "flipped" : "";
                     tablaHTML += `
                     <td>
-                        <div class="card" data-id="${imgSrc}" onclick="voltearCarta(this)">
+                        <div class="card ${flippedClass}" data-id="${imgSrc}" onclick="voltearCarta(this)">
                             <div class="card-inner">
                                 <div class="card-front">
                                     <img src="${reverso}" alt="Reverso">
@@ -137,18 +153,25 @@ window.addEventListener("DOMContentLoaded", () => {
                         </div>
                     </td>`;
                     cont++;
-                    
                 } else {
                     tablaHTML += "<td></td>";
                 }
             }
-            tablaHTML += "</tr>"; 
-           
+            tablaHTML += "</tr>";
         }
 
         tablaHTML += "</table>";
         document.getElementById("juego").innerHTML = tablaHTML;
+
+        // Si el modo de juego es "flash", desvelar las cartas durante 5 segundos
+        if (menuJuego.value === "flash") {
+            setTimeout(() => {
+                const cartas = document.querySelectorAll(".card");
+                cartas.forEach(carta => carta.classList.remove("flipped"));
+            }, 5000);
+        }
     }
+
     // Seleccionar el checkbox y el contenedor
     const checkboxTemporizador = document.querySelector('input[name="opciones"][value="opcion1"]');
     const contenedor = document.getElementById("contenedor");
@@ -213,54 +236,110 @@ window.addEventListener("DOMContentLoaded", () => {
               
 
 function voltearCarta(carta) {
-
     if (bloquear || carta.classList.contains("flipped")) return;
 
-    // volteamos la carta
+    // Si el modo es "flash", no voltear la carta inmediatamente
+    if (modoJuego.value === "flash") {
+        if (!primeraCarta) {
+            primeraCarta = carta;
+            return; // No voltear la primera carta aún
+        } else {
+            // Evitar que el usuario haga doble clic en la misma carta
+            if (primeraCarta === carta) return;
+
+            segundaCarta = carta;
+            bloquear = true;
+
+            // Verificar si las cartas coinciden
+            const id1 = primeraCarta.getAttribute("data-id");
+            const id2 = segundaCarta.getAttribute("data-id");
+
+            if (id1 === id2) {
+                // Si coinciden, desvelarlas
+                primeraCarta.classList.add("flipped");
+                segundaCarta.classList.add("flipped");
+                primeraCarta = null;
+                segundaCarta = null;
+                aciertos++;
+                bloquear = false;
+
+                // Verificar si se completaron todas las parejas
+                if (aciertos === parejasCreadas) {
+                    setTimeout(() => {
+                        const nombre = document.getElementById("nombre").value;
+                        const tiempo = parseInt(segundos);
+                        const intentos = contador;
+
+                        // Guardar el resultado en localStorage
+                        let resultados = JSON.parse(localStorage.getItem("resultados")) || [];
+                        resultados.push({ nombre, tiempo, intentos, alto, ancho });
+                        localStorage.setItem("resultados", JSON.stringify(resultados));
+
+                        // Mostrar ventana emergente
+                        mostrarVentanaEmergente(nombre, tiempo, intentos);
+                    }, 500);
+                }
+            } else {
+                // Si no coinciden, mostrar una "X" temporal
+                mostrarError(primeraCarta, segundaCarta);
+
+                setTimeout(() => {
+                    primeraCarta = null;
+                    segundaCarta = null;
+                    bloquear = false;
+
+                    contador++;
+                    const displayCont = document.getElementById("contador");
+                    if (displayCont) {
+                        displayCont.innerText = "Intentos: " + contador;
+                    }
+                }, 1000);
+            }
+        }
+        return;
+    }
+
+    // Modo "normal": Voltear la carta inmediatamente
     carta.classList.add("flipped");
 
-    // si es la primera carta que hemos volteado
     if (!primeraCarta) {
         primeraCarta = carta;
-
     } else {
-        // es la segunda carta
+        // Evitar que el usuario haga doble clic en la misma carta
+        if (primeraCarta === carta) return;
+
         segundaCarta = carta;
         bloquear = true;
 
-        // obtenemos el ID de las dos cartas
+        // Verificar si las cartas coinciden
         const id1 = primeraCarta.getAttribute("data-id");
         const id2 = segundaCarta.getAttribute("data-id");
 
-        // verificamos si coinciden
         if (id1 === id2) {
-            // coinciden se quedan boca arriba
+            // Si coinciden, mantenerlas desveladas
             primeraCarta = null;
             segundaCarta = null;
             bloquear = false;
-            aciertos++
+            aciertos++;
+
+            // Verificar si se completaron todas las parejas
             setTimeout(() => {
                 if (aciertos === parejasCreadas) {
-                    const nombre = document.getElementById("nombre").value; // Obtener el nombre del jugador
-                    const tiempo = parseInt(segundos); // Formato del tiempo como número
+                    const nombre = document.getElementById("nombre").value;
+                    const tiempo = parseInt(segundos);
                     const intentos = contador;
 
-                    // Obtener resultados previos de localStorage
+                    // Guardar el resultado en localStorage
                     let resultados = JSON.parse(localStorage.getItem("resultados")) || [];
-
-                    // Agregar el nuevo resultado
                     resultados.push({ nombre, tiempo, intentos, alto, ancho });
-
-                    // Guardar los resultados actualizados en localStorage
                     localStorage.setItem("resultados", JSON.stringify(resultados));
 
                     // Mostrar ventana emergente
                     mostrarVentanaEmergente(nombre, tiempo, intentos);
                 }
             }, 500);
-
         } else {
-            // si no coinciden se voltean de nuevo
+            // Si no coinciden, voltearlas de nuevo
             setTimeout(() => {
                 primeraCarta.classList.remove("flipped");
                 segundaCarta.classList.remove("flipped");
@@ -271,19 +350,19 @@ function voltearCarta(carta) {
                 contador++;
                 const displayCont = document.getElementById("contador");
                 if (displayCont) {
-                    displayCont.innerText = "contador: " + contador;
+                    displayCont.innerText = "Intentos: " + contador;
                 }
-
-            }, 1000); // se voltean después de 1 segundo
+            }, 1000);
         }
-
     }
-
 }
 
 // Función para mostrar la ventana emergente
 function mostrarVentanaEmergente(nombre, tiempo, intentos) {
     console.log("Mostrando ventana emergente"); 
+
+    const puntuacionTexto = `¡He completado el juego en ${tiempo} segundos con ${intentos} intentos en una dificultad de ${alto}x${ancho}! ¿Puedes superarme?`;
+    const urlCompartir = `https://www.facebook.com/sharer/sharer.php?u=https://tusitio.com&quote=${encodeURIComponent(puntuacionTexto)}`;
 
     const resultadoHTML = `
         <div id="ventanaResultado" class="resultado">
@@ -292,6 +371,7 @@ function mostrarVentanaEmergente(nombre, tiempo, intentos) {
                 <p>Tiempo: ${tiempo}</p>
                 <p>Intentos: ${intentos}</p>
                 <p>Dificultad: ${alto}x${ancho}</p>
+                <button id="compartirFacebook">Compartir en Facebook</button>
                 <button id="cerrarResultado">Cerrar</button>
             </div>
         </div>
@@ -301,6 +381,11 @@ function mostrarVentanaEmergente(nombre, tiempo, intentos) {
 
     const resultado = document.getElementById("ventanaResultado");
     resultado.style.display = "block";
+
+    // Evento para compartir en Facebook
+    document.getElementById("compartirFacebook").addEventListener("click", () => {
+        window.open(urlCompartir, '_blank');
+    });
 
     // Cerrar el resultado al hacer clic en el botón
     document.getElementById("cerrarResultado").addEventListener("click", () => {
@@ -329,8 +414,53 @@ function mostrarResultados(criterio = "tiempo") {
 
         resultados.forEach((resultado, index) => {
             const li = document.createElement("li");
-            li.textContent = `${index + 1}. ${resultado.nombre} - Tiempo: ${resultado.tiempo}s - Intentos: ${resultado.intentos} - Dificultad: ${resultado.alto}x${resultado.ancho}`;
+            li.innerHTML = `
+            <div class="resultado-item">
+                <span class="resultado-nombre">${index + 1}. ${resultado.nombre}</span>
+                <span class="resultado-tiempo">Tiempo: ${resultado.tiempo}s</span>
+                <span class="resultado-intentos">Intentos: ${resultado.intentos}</span>
+                <span class="resultado-dificultad">Dificultad: ${resultado.alto}x${resultado.ancho}</span>
+            </div>
+        `;
             listaResultados.appendChild(li);
         });
     }
+}
+
+function mostrarError(carta1, carta2) {
+    // Crear un elemento "X" para cada carta
+    const error1 = document.createElement("div");
+    const error2 = document.createElement("div");
+
+    error1.textContent = "X";
+    error2.textContent = "X";
+
+    // Estilo para la "X"
+    error1.style.position = "absolute";
+    error1.style.top = "50%";
+    error1.style.left = "50%";
+    error1.style.transform = "translate(-50%, -50%)";
+    error1.style.color = "red";
+    error1.style.fontSize = "2rem";
+    error1.style.fontWeight = "bold";
+    error1.style.zIndex = "10";
+
+    error2.style.position = "absolute";
+    error2.style.top = "50%";
+    error2.style.left = "50%";
+    error2.style.transform = "translate(-50%, -50%)";
+    error2.style.color = "red";
+    error2.style.fontSize = "2rem";
+    error2.style.fontWeight = "bold";
+    error2.style.zIndex = "10";
+
+    // Añadir la "X" a las cartas
+    carta1.appendChild(error1);
+    carta2.appendChild(error2);
+
+    // Eliminar la "X" después de 1 segundo
+    setTimeout(() => {
+        error1.remove();
+        error2.remove();
+    }, 1000);
 }

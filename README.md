@@ -148,14 +148,15 @@ Proyecto Memorión en JavaScript para practias 1ºDAW
 ## sesion 6
 
 **Resumen:**
-[Hemos añadido el huevo de pascua y algunas mejoras en la visualizacion del contenido]
+[Hemos añadido algunas mejoras en la visualizacion del contenido, tambien hemos añadido una cacion que empieza a sonar al generar el tablero pero su iframe lo hemos dejado oculto para mayor agrado a la vista]
 
 **Dificultades encontradas**
 - [No hemos podido parar el cronometro]
+-[Hemos tenido que eliminar un easterEgg que iva a aparecer antes de generarse el tablero al seleccionar el modo flash ya que se nos complico un commit en github y luego teniamos problemas para equiparar el cronometro musica y audio del easterEgg]
 
 **Soluciones aplicadas:**
-- [Invesgacion en paginas web]
-- [Invesgacion en inteligencias artificiales]
+- [Investigacion en paginas web]
+- [Investigacion en inteligencias artificiales]
 
 **Fuentes consultadas**
 - [https://chatgpt.com/]

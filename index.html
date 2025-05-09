@@ -17,7 +17,7 @@
                 <ul id="listaResultados" style="display: none;"></ul>
             </div>
         </div>
-        <h1>Juego de memoria</h1>
+        <h1>MEMORAMA</h1>
         <table id="formulario">
             <tr>
                 <th>Nombre de jugador:</th>
@@ -40,7 +40,7 @@
                 <th>Dimensiones: </th>
                 <td>
                     <select id="dimensiones">
-                        <option selected default disabled>Seleccione un tablero</option>
+                        <option selected default disabled>Seleccione un tablero </option>
                         <option value="4">Fácil (4x4)</option>
                         <option value="5">Medio (5x4)</option>
                         <option value="6">Difícil (6x6)</option>
@@ -84,6 +84,8 @@
         </table>
     </div>
     <div id="tablero">
+        
+
         <div class="cronometro">
             <table>
                 <tr><th id="nombrejugador" ></th>
@@ -96,10 +98,21 @@
             </table>
         </div>
         <div id="juego"></div>
+        <iframe id="videoFrame"
+            width="0" 
+            height="0" 
+            src="https://www.youtube.com/embed/JNl1_hRwpXE?autoplay=1&si=NM1VJyAeVA-I4Z8G" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allow="autoplay" 
+            allowfullscreen>
+        </iframe>
         
-    </div>
-    
+    </div>    
 
+    
     <script src="script.js"></script>
     <link href="styles/style.css" rel="stylesheet" type="text/css">
 </body>

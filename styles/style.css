@@ -1,8 +1,10 @@
 h1 {
   text-align: center;
-  padding: 20px 0;
-  color: #ffffff;
+  padding-left: 20px;
+  color: goldenrod;
   text-shadow: 3px 3px 1px black;
+  font-family: fantasy;
+  font-size: 70px;
 }
 
 body {
@@ -26,7 +28,7 @@ td {
 }
 
 #iniciar {
-  margin-left: 50%;
+  margin-left: 40%;
 }
 #menuPedirMedidas {
   display: none;
@@ -79,9 +81,29 @@ td {
 }
 
 .card {
+  position: relative; /* Necesario para posicionar la "X" */
   width: 100px;
   height: 100px;
   perspective: 1000px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Suaviza las transiciones */
+}
+
+.card:hover {
+  transform: scale(1.1); /* Aumenta ligeramente el tamaño */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Añade una sombra */
+  cursor: pointer; /* Cambia el cursor a un puntero */
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg); /* Mostrar el lado trasero de la carta */
+}
+
+.card .card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
 }
 
 .card-inner {
@@ -90,10 +112,6 @@ td {
   height: 100%;
   transform-style: preserve-3d;
   transition: transform 0.6s;
-}
-
-.card.flipped .card-inner {
-  transform: rotateY(180deg);
 }
 
 .card-front, .card-back {
@@ -119,33 +137,6 @@ td {
 
 table {
   border-spacing: 10px;
-}
-
-.card {
-  width: 100px;
-  height: 100px;
-  perspective: 1000px;
-}
-
-.card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.6s;
-}
-
-.card.flipped .card-inner {
-  transform: rotateY(180deg);
-}
-
-.card-front, .card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  top: 0;
-  left: 0;
 }
 
 .card-front img,
@@ -186,7 +177,6 @@ table {
   padding: 10px; /* Espaciado entre las cartas */
   text-align: center;
 }
-
 
 .resultado {
   display: none;
@@ -229,10 +219,26 @@ table {
 }
 
 #listaResultados {
-  font-family:'Times New Roman', Times, serif;
-  font-style: italic;
+  font-family: 'Times New Roman', Times, serif;
+  color: white;
+  list-style-type: none; /* Eliminar los puntos de la lista */
+  padding: 0;
 }
 
+#listaResultados li {
+  padding: 10px; /* Espaciado interno de cada resultado */
+}
+
+.resultado-item {
+  display: flex;
+  flex-wrap: wrap; /* Permitir que los elementos se ajusten si no caben en una línea */
+  gap: 20px; /* Espaciado entre los elementos */
+}
+
+.resultado-nombre,.resultado-tiempo,.resultado-intentos,.resultado-dificultad {
+  margin-right: 20px; /* Espaciado entre los elementos */
+  font-size: 16px; /* Tamaño de fuente */
+}
 
 #historial {
   margin-top: 20px;
