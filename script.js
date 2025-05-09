@@ -338,8 +338,7 @@ function mostrarResultados(criterio = "tiempo") {
 
         resultados.forEach((resultado, index) => {
             const li = document.createElement("li");
-            li.textContent = `${index + 1}. ${resultado.nombre} - Tiempo: ${resultado.tiempo}s - Intentos: ${resultado.intentos} - Dificultad: ${resultado.alto}x${resultado.ancho}`;
-            listaResultados.appendChild(li);
+            li.textContent = `${index + 1}. ${resultado.nombre}  -Tiempo: ${resultado.tiempo}s  -Intentos: ${resultado.intentos}  -Dificultad: ${resultado.alto}x${resultado.ancho}`;            listaResultados.appendChild(li);
         });
     }
 }

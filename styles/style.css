@@ -26,7 +26,7 @@ td {
 }
 
 #iniciar {
-  margin-left: 50%;
+  margin-left: 40%;
 }
 #menuPedirMedidas {
   display: none;
@@ -82,7 +82,17 @@ td {
   width: 100px;
   height: 100px;
   perspective: 1000px;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Suaviza las transiciones */
+
 }
+
+.card:hover {
+  transform: scale(1.1); /* Aumenta ligeramente el tamaño */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Añade una sombra */
+  cursor: pointer; /* Cambia el cursor a un puntero */
+}
+
 
 .card-inner {
   position: relative;
@@ -230,7 +240,7 @@ table {
 
 #listaResultados {
   font-family:'Times New Roman', Times, serif;
-  font-style: italic;
+  color: white;
 }
 
 
