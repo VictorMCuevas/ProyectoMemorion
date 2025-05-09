@@ -81,7 +81,7 @@ td {
 }
 
 .card {
-  position: relative;
+  position: relative; /* Necesario para posicionar la "X" */
   width: 100px;
   height: 100px;
   perspective: 1000px;

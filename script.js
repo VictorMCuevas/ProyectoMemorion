@@ -224,24 +224,78 @@ window.addEventListener("DOMContentLoaded", () => {
 function voltearCarta(carta) {
     if (bloquear || carta.classList.contains("flipped")) return;
 
-    // Volteamos la carta
+    // Si el modo es "flash", no voltear la carta inmediatamente
+    if (modoJuego.value === "flash") {
+        if (!primeraCarta) {
+            primeraCarta = carta;
+            return; // No voltear la primera carta aún
+        } else {
+            segundaCarta = carta;
+
+            // Verificar si las cartas coinciden
+            const id1 = primeraCarta.getAttribute("data-id");
+            const id2 = segundaCarta.getAttribute("data-id");
+
+            if (id1 === id2) {
+                // Si coinciden, desvelarlas
+                primeraCarta.classList.add("flipped");
+                segundaCarta.classList.add("flipped");
+                primeraCarta = null;
+                segundaCarta = null;
+                aciertos++;
+                bloquear = false;
+
+                // Verificar si se completaron todas las parejas
+                if (aciertos === parejasCreadas) {
+                    setTimeout(() => {
+                        const nombre = document.getElementById("nombre").value;
+                        const tiempo = parseInt(segundos);
+                        const intentos = contador;
+
+                        // Guardar el resultado en localStorage
+                        let resultados = JSON.parse(localStorage.getItem("resultados")) || [];
+                        resultados.push({ nombre, tiempo, intentos, alto, ancho });
+                        localStorage.setItem("resultados", JSON.stringify(resultados));
+
+                        // Mostrar ventana emergente
+                        mostrarVentanaEmergente(nombre, tiempo, intentos);
+                    }, 500);
+                }
+            } else {
+                // Si no coinciden, mostrar una "X" temporal
+                mostrarError(primeraCarta, segundaCarta);
+
+                setTimeout(() => {
+                    primeraCarta = null;
+                    segundaCarta = null;
+                    bloquear = false;
+
+                    contador++;
+                    const displayCont = document.getElementById("contador");
+                    if (displayCont) {
+                        displayCont.innerText = "Intentos: " + contador;
+                    }
+                }, 1000);
+            }
+        }
+        return;
+    }
+
+    // Modo "normal": Voltear la carta inmediatamente
     carta.classList.add("flipped");
 
-    // Si es la primera carta que hemos volteado
     if (!primeraCarta) {
         primeraCarta = carta;
     } else {
-        // Es la segunda carta
         segundaCarta = carta;
         bloquear = true;
 
-        // Obtenemos el ID de las dos cartas
+        // Verificar si las cartas coinciden
         const id1 = primeraCarta.getAttribute("data-id");
         const id2 = segundaCarta.getAttribute("data-id");
 
-        // Verificamos si coinciden
         if (id1 === id2) {
-            // Coinciden, se quedan boca arriba
+            // Si coinciden, mantenerlas desveladas
             primeraCarta = null;
             segundaCarta = null;
             bloquear = false;
@@ -264,26 +318,20 @@ function voltearCarta(carta) {
                 }
             }, 500);
         } else {
-            // No coinciden
-            if (modoJuego.value === "flash") {
-                // En modo "flash", las cartas no se desvelan
-                setTimeout(() => {
-                    primeraCarta.classList.remove("flipped");
-                    segundaCarta.classList.remove("flipped");
-                    primeraCarta = null;
-                    segundaCarta = null;
-                    bloquear = false;
-                }, 1000);
-            } else {
-                // En modo "normal", las cartas se voltean de nuevo
-                setTimeout(() => {
-                    primeraCarta.classList.remove("flipped");
-                    segundaCarta.classList.remove("flipped");
-                    primeraCarta = null;
-                    segundaCarta = null;
-                    bloquear = false;
-                }, 1000);
-            }
+            // Si no coinciden, voltearlas de nuevo
+            setTimeout(() => {
+                primeraCarta.classList.remove("flipped");
+                segundaCarta.classList.remove("flipped");
+                primeraCarta = null;
+                segundaCarta = null;
+                bloquear = false;
+
+                contador++;
+                const displayCont = document.getElementById("contador");
+                if (displayCont) {
+                    displayCont.innerText = "Intentos: " + contador;
+                }
+            }, 1000);
         }
     }
 }
@@ -356,4 +404,42 @@ function mostrarResultados(criterio = "tiempo") {
             listaResultados.appendChild(li);
         });
     }
+}
+
+function mostrarError(carta1, carta2) {
+    // Crear un elemento "X" para cada carta
+    const error1 = document.createElement("div");
+    const error2 = document.createElement("div");
+
+    error1.textContent = "X";
+    error2.textContent = "X";
+
+    // Estilo para la "X"
+    error1.style.position = "absolute";
+    error1.style.top = "50%";
+    error1.style.left = "50%";
+    error1.style.transform = "translate(-50%, -50%)";
+    error1.style.color = "red";
+    error1.style.fontSize = "2rem";
+    error1.style.fontWeight = "bold";
+    error1.style.zIndex = "10";
+
+    error2.style.position = "absolute";
+    error2.style.top = "50%";
+    error2.style.left = "50%";
+    error2.style.transform = "translate(-50%, -50%)";
+    error2.style.color = "red";
+    error2.style.fontSize = "2rem";
+    error2.style.fontWeight = "bold";
+    error2.style.zIndex = "10";
+
+    // Añadir la "X" a las cartas
+    carta1.appendChild(error1);
+    carta2.appendChild(error2);
+
+    // Eliminar la "X" después de 1 segundo
+    setTimeout(() => {
+        error1.remove();
+        error2.remove();
+    }, 1000);
 }
