@@ -9,7 +9,7 @@ var parejasCreadas = 0;
 let ancho;
 let alto;
 var temasDisponibles = ["deportes", "animales", "banderas", "informática"];
-var segundos = 0;
+var segundos = -1;
 var partidasnNormal = [];
 var partidasFlash= [];
 var filtro;
@@ -80,9 +80,19 @@ window.addEventListener("DOMContentLoaded", () => {
 
             inicio.style.display = "none";
             tablero.style.display = "block";
-
             iniciarCronometro();
+            if (modoJuego.value === "flash") {
+            setTimeout(() => {
+                iniciarCronometro();
+                setInterval(iniciarCronometro, 1000);
+            }, 5000);
+            
+            }else{
+                iniciarCronometro();
             setInterval(iniciarCronometro, 1000);
+            }
+
+            
         }
     });
 
