@@ -38,7 +38,7 @@ td {
   
   display: none;
   animation: pulsar 1s forwards;
-  background-image: url("../imagenes/fondo.jpg");
+  background-image: url("ProyectoMemorion/imagenes/fondo.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: centers;
